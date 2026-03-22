@@ -65,6 +65,8 @@ function createTemplate(lang, promptData, prefix) {
   <link rel="alternate" hreflang="es" href="https://aierasu.com/es/prompts/${slug}/" />
   <link rel="alternate" hreflang="x-default" href="https://aierasu.com/prompts/${slug}/" />
   
+  <meta name="google-site-verification" content="MihO2RKO_6DwphmS_u9m_7YI-X9Q8Z9p_L-r7v_j_Y" />
+
   ${GA4_SCRIPT}
 
   <!-- Schema.org Rich Snippets (SoftwareApplication) -->

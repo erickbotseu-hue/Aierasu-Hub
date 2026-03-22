@@ -49,6 +49,8 @@ function generateHtml(lang, slug, title, content, prefix) {
   <meta name="description" content="${title} for Aierasu Hub.">
   <link rel="stylesheet" href="${prefix}style.css">
   
+  <meta name="google-site-verification" content="MihO2RKO_6DwphmS_u9m_7YI-X9Q8Z9p_L-r7v_j_Y" />
+
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
   <script>
