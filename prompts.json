@@ -1,0 +1,90 @@
+[
+  {
+    "slug": "saas-financial-projection",
+    "title": "Proyección Financiera para Startups SaaS B2B (Plantilla a 3 Años)",
+    "category": "Finanzas/E-commerce",
+    "prompt": "Act as an elite Virtual CFO. Create a comprehensive 3-year P&L projection template for a B2B SaaS. Include variables for Customer Acquisition Cost (CAC), Lifetime Value (LTV), Monthly Recurring Revenue (MRR), Churn Rate, and Operating Expenses. Format it as an easy-to-read markdown table.",
+    "exampleResult": "| Metric | Year 1 | Year 2 | Year 3 |\\n|--------|--------|--------|--------|\\n| MRR | $10K | $50K | $250K |\\n| Churn | 5% | 3% | 2% |",
+    "useCaseEn": "Essential for startup founders preparing pitch decks to raise seed or Series A venture capital.",
+    "useCaseEs": "Esencial para fundadores de startups que están preparando presentaciones para levantar capital semilla o de Serie A.",
+    "proTipEn": "Feed the AI your current operating costs so the projection tables are perfectly tailored.",
+    "proTipEs": "Consejo Pro: Dale a la IA tus gastos fijos actuales (servidores, nómina) para que la tabla sea matemáticamente exacta y aplicable hoy."
+  },
+  {
+    "slug": "high-ticket-saas-closing",
+    "title": "Guion de Cierre de Ventas High-Ticket (Manejo de Objeciones B2B)",
+    "category": "Programación/SaaS",
+    "prompt": "Write a 3-step high-ticket closing script. Address the following objections: 'It's too expensive', 'We need to think about it', and 'We are already using a competitor'. Use the 'Feel, Felt, Found' neuro-linguistic framework.",
+    "exampleResult": "[Objection: Price]\\n'I completely understand how you feel... Many of our enterprise clients felt the same initially. However, what they found was that the ROI covered...'",
+    "useCaseEn": "Perfect for Account Executives or Founders closing software deals over $10K/year on Zoom.",
+    "useCaseEs": "Perfecto para Ejecutivos de Cuentas o Fundadores cerrando contratos de software B2B superiores a $10K/año vía Zoom.",
+    "proTipEn": "Instruct the AI to adjust the tone to 'Consultative and Empathetic' to avoid sounding like a sleazy salesman.",
+    "proTipEs": "Tip Exclusivo: Pídele a la IA que use un tono 'Consultivo y Empático', evitando sonar como 'un vendedor agresivo'. La retención a largo plazo comienza con la honestidad."
+  },
+  {
+    "slug": "crypto-algo-trading-logic",
+    "title": "Lógica Base para Bot de Trading Algorítmico (Estrategia Reversión a la Media)",
+    "category": "Finanzas/E-commerce",
+    "prompt": "Act as a Quantitative Trading Analyst. Write the pseudocode and logic flow for a crypto algorithmic trading bot using a Mean Reversion strategy. Describe the entry indicators (RSI, Bollinger Bands), risk management (Stop Loss), and profit taking criteria.",
+    "exampleResult": "**Setup:**\\n- Timeframe: 15m\\n- Indicators: RSI (14), Bollinger Bands (20, 2)\\n**Entry Long:** When price closes below Lower BB and RSI crosses 30 from below...\\n**Risk:** 1% account risk per trade.",
+    "useCaseEn": "Ideal for retail quants or crypto enthusiasts trying to automate volatile market swings in Python/MQL5.",
+    "useCaseEs": "Ideal para quants minoristas o entusiastas cripto intentando automatizar reversiones de mercado volátiles en Python, PineScript o MQL5.",
+    "proTipEn": "Ask the AI to convert the pseudocode directly into TradingView PineScript v5 so you can backtest it immediately.",
+    "proTipEs": "Acelerador: Pídele a la IA que traduzca el pseudocódigo directamente a 'PineScript v5 de TradingView' para poder hacer backtesting de la estrategia inmediatamente."
+  },
+  {
+    "slug": "tiktok-viral-script-hook",
+    "title": "Guion Viral de TikTok para Retención (Estructura Hook-Retain-Reward)",
+    "category": "Marketing/Redes Sociales",
+    "prompt": "Act as an expert short-form video copywriter. Write a 45-second TikTok script for [PRODUCT/SERVICE]. Start with a pattern-interrupt hook, provide 3 actionable steps, and end with a strong CTA. Format with visual cues and screen text.",
+    "exampleResult": "[Hook - Visual: Pointing at screen]: 'Stop scrolling if you want to double your reach...'\\n[Step 1]: First, do X...\\n[CTA]: Click the link in my bio to get the full checklist.",
+    "useCaseEn": "Perfect for boosting watch time and algorithmic reach on TikTok and Reels.",
+    "useCaseEs": "Perfecto para aumentar el tiempo de visualización y retención algorítmica en TikTok e Instagram Reels.",
+    "proTipEn": "If the script feels too corporate, ask the AI to rewrite it in the tone of MrBeast or Alex Hormozi for higher engagement.",
+    "proTipEs": "Si el guion se siente aburrido, pídele a la IA que lo reescriba con el tono hiperactivo de editores de TikTok modernos."
+  },
+  {
+    "slug": "high-cvr-landing-page",
+    "title": "Página de Captura Optimizada para Conversión CVR (Fórmula PAS)",
+    "category": "Finanzas/E-commerce",
+    "prompt": "Write a high-converting landing page copy using the Problem-Agitation-Solution (PAS) framework for [PRODUCT]. Include a compelling headline, 3 benefit-driven bullet points, and a primary CTA that reduces purchase friction.",
+    "exampleResult": "Headline: Stop Wasting Money on Ineffective Ads...\\n[Problem]: You're spending thousands but seeing zero returns.\\n[Agitation]: Every day you wait, your competitors steal your market share.\\n[Solution]: Introducing our tool...\\n[CTA]: Start your 14-day free trial today (No credit card required).",
+    "useCaseEn": "Ideal for Shopify dropshipping stores or high-ticket service funnels struggling with bounce rates.",
+    "useCaseEs": "Ideal para tiendas Shopify o embudos de servicios high-ticket que luchan de conseguir tasas de conversión óptimas.",
+    "proTipEn": "To maximize conversions, prompt the AI to add an 'Objection Handling' FAQ section at the end of the copy.",
+    "proTipEs": "Para maximizar cierres, añádele al prompt: 'Crea una sección de FAQ orientada al manejo de objeciones detallada al final'."
+  },
+  {
+    "slug": "nodejs-microservices-arch",
+    "title": "Generador de Arquitectura Backend en Node.js (Microservicios)",
+    "category": "Programación/SaaS",
+    "prompt": "Act as a Senior Cloud Architect. Design a scalable microservices architecture for a [TYPE OF APP] using Node.js, Docker, and AWS. Provide the folder structure, necessary dependencies, and a diagram description.",
+    "exampleResult": "**Folder Structure:**\\n/auth-service\\n/payment-service\\n/user-service\\n**Dependencies:** express, mongoose, amqplib...\\n**Architecture:** API Gateway routes traffic to individual Dockerized containers...",
+    "useCaseEn": "Accelerates technical planning and documentation phases for SaaS MVPs.",
+    "useCaseEs": "Acelera drásticamente las fases de planificación técnica, estandarización de código y documentación para software comercial B2B.",
+    "proTipEn": "Ask the AI to also generate the 'docker-compose.yml' file to instantly launch your local development environment.",
+    "proTipEs": "Ahorra tiempo: Pídele a la IA que también genere un archivo 'docker-compose.yml' estructurado para lanzar tu entorno micro-servicios local."
+  },
+  {
+    "slug": "b2b-linkedin-strategy",
+    "title": "Estrategia Mensual de Contenido B2B para LinkedIn (Generación de Leads)",
+    "category": "Marketing/Redes Sociales",
+    "prompt": "Act as a B2B LinkedIn Ghostwriter. Create a 4-week content calendar for a [ROLE/INDUSTRY]. Include 2 educational posts, 1 personal story, and 1 direct lead generation post per week. Provide specific hooks for each.",
+    "exampleResult": "Week 1:\\n- Monday (Educational): 3 mistakes founders make with X...\\n- Wednesday (Personal): How I lost my first big client...\\n- Friday (Lead Gen): I just opened 3 spots for consulting. Here is who I can help...",
+    "useCaseEn": "Perfect for founders and consultants who need to build an inbound lead pipeline organically.",
+    "useCaseEs": "Perfecto para C-levels corporativos o consultores SaaS que apuntan a conseguir contratos con empresas a través de marca personal.",
+    "proTipEn": "Break down the 'Personal Story' prompt further by feeding the AI three specific challenges you faced last year.",
+    "proTipEs": "Alimento clave: No dejes que la IA invente; dale 3 errores graves que cometiste en el pasado y dile que formule los posts de 'Historias Personales' basándose en ellos."
+  },
+  {
+    "slug": "python-owasp-audit",
+    "title": "Auditor de Seguridad Lógica y Refactorización Python (OWASP)",
+    "category": "Programación/SaaS",
+    "prompt": "Review the following Python snippet for OWASP Top 10 vulnerabilities. Identify potential SQL injections, XSS, or insecure deserialization. Provide the secure refactored code and an explanation of the fix: [CODE]",
+    "exampleResult": "Observation: Line 45 uses string concatenation for a SQL query, making it vulnerable to SQL Injection.\\nFix: Rewritten using parameterized queries... [Secure Code Snippet]",
+    "useCaseEn": "Automates initial security reviews for freelance developers before pushing code to production.",
+    "useCaseEs": "Limita riesgos legales automatizando revisiones de seguridad CISO iniciales en software financiero antes de empujarlo a producción en la nube.",
+    "proTipEn": "If the output is too long or you hit token limits, add 'Review only the authentication methods first' to the prompt.",
+    "proTipEs": "Control de contexto: Usa un formato por módulos diciendo: 'Primero refactoriza los modulos de autenticación, luego revisa el acceso a DB'."
+  }
+]

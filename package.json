@@ -1,0 +1,12 @@
+{
+  "name": "aierasu-hub",
+  "version": "1.0.0",
+  "description": "Aierasu AI Utility Hub",
+  "scripts": {
+    "build": "node scripts/build.js",
+    "dev": "npx serve ."
+  },
+  "keywords": [],
+  "author": "Aierasu",
+  "license": "ISC"
+}

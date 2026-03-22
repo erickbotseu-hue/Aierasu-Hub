@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Caption Generator — Free Tool | aierasu.com</title>
+    <meta name="description"
+        content="Generate 5 scroll-stopping Instagram & TikTok captions with relevant hashtags. Free AI tool by Aierasu.">
+    <meta property="og:title" content="AI Caption Generator — Free AI Tool | Aierasu Hub">
+    <meta property="og:description"
+        content="Write captions that convert followers into customers. Get 5 AI-powered captions with hashtags — completely free.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://aierasu.com/caption-generator.html">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Outfit:wght@500;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+    <canvas id="particles-canvas"></canvas>
+
+    <nav class="nav" id="nav">
+        <div class="container nav__inner">
+            <a href="../index.html" class="tool-backlink">
+                <div class="tool-backlink-icon"></div>
+                <span>← Back to Aierasu Hub</span>
+            </a>
+            <a href="https://aierasu.gumroad.com/l/prompt" class="nav__cta"
+                style="font-size:0.8rem;padding:8px 18px;">Get The Vault — $19</a>
+        </div>
+    </nav>
+
+    <main class="container" style="padding-top: 100px;">
+        <div class="tool-page-layout">
+
+            <section class="tool-input-section">
+                <div class="tool-header">
+                    <div
+                        style="display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:999px;font-size:0.8rem;font-weight:600;color:#34d399;background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.2);margin-bottom:16px;">
+                        ✦ FREE TOOL
+                    </div>
+                    <h1>AI Caption <span class="gradient-text">Generator</span></h1>
+                    <p class="section-subtitle">Stop staring at a blank screen. Enter what your post is about and the AI
+                        will write 5 scroll-stopping captions with hashtags — ready to copy and paste.</p>
+                </div>
+
+                <div
+                    style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-xl);padding:32px;">
+                    <form id="captionForm" class="form-group" style="gap:20px;">
+                        <div class="form-group">
+                            <label for="postAbout">What is your post about?</label>
+                            <textarea id="postAbout" class="tool-input"
+                                placeholder="Example: Launching my new online course on AI automation — targeting solopreneurs who want to save 10+ hours/week"
+                                required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="platform">Platform</label>
+                            <select id="platform" class="tool-input">
+                                <option value="instagram">📸 Instagram</option>
+                                <option value="tiktok">🎵 TikTok</option>
+                                <option value="linkedin">💼 LinkedIn</option>
+                                <option value="twitter">🐦 Twitter / X</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="captionTone">Caption Style</label>
+                            <select id="captionTone" class="tool-input">
+                                <option value="engaging">🔥 Engaging & Viral</option>
+                                <option value="educational">📚 Educational / Value</option>
+                                <option value="storytelling">📖 Storytelling</option>
+                                <option value="promotional">💎 Promotional / Sales</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn--primary btn--glow btn-tool-generate">
+                            📝 Generate Captions
+                        </button>
+                    </form>
+                </div>
+            </section>
+
+            <section class="tool-output-section">
+                <div class="tool-output-card" id="outputContainer">
+
+                    <div class="tool-empty-state" id="emptyState">
+                        <div class="tool-empty-state__icon">📝</div>
+                        <h3 style="margin-bottom:8px;">Your captions will appear here</h3>
+                        <p>Fill in the form and hit Generate.</p>
+                    </div>
+
+                    <div class="tool-loading-state" id="loadingState" style="display:none;">
+                        <div class="tool-spinner"></div>
+                        <h3 style="font-weight:700;">Crafting viral captions...</h3>
+                        <p style="color:var(--text-secondary);margin-top:8px;">Analyzing engagement patterns from
+                            top-performing posts.</p>
+                    </div>
+
+                    <div id="resultsState" style="display:none;">
+                        <h3 style="margin-bottom:16px;font-weight:700;">Your Captions:</h3>
+                        <div id="resultsList" style="display:flex;flex-direction:column;gap:16px;"></div>
+
+                        <div id="blurredSection" style="position:relative;margin-top:16px;">
+                            <div id="blurredItems"
+                                style="display:flex;flex-direction:column;gap:16px;filter:blur(6px);pointer-events:none;user-select:none;">
+                            </div>
+                            <div
+                                style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(10,10,20,0.6);border-radius:var(--radius-md);backdrop-filter:blur(2px);">
+                                <h4 style="color:#fff;font-size:1.1rem;margin-bottom:4px;">🔒 2 more captions locked
+                                </h4>
+                                <p style="color:var(--text-secondary);font-size:0.85rem;margin-bottom:16px;">Enter your
+                                    email to unlock all 5</p>
+                                <form id="emailCaptureForm" style="display:flex;gap:8px;width:90%;max-width:400px;">
+                                    <input type="email" id="userEmail" class="tool-input" placeholder="your@email.com"
+                                        required style="flex:1;margin:0;">
+                                    <button type="submit" class="btn btn--primary"
+                                        style="white-space:nowrap;padding:10px 18px;">Unlock 🔓</button>
+                                </form>
+                                <p style="font-size:0.75rem;margin-top:8px;color:var(--text-muted);opacity:0.5;">🔒 Zero
+                                    spam. Unsubscribe anytime.</p>
+                            </div>
+                        </div>
+
+                        <div id="unlockedSection" style="display:none;">
+                            <div id="unlockedItems" style="display:flex;flex-direction:column;gap:16px;"></div>
+                        </div>
+
+                        <div
+                            style="margin-top:24px;padding:20px;background:rgba(249,115,22,0.06);border:1px solid rgba(249,115,22,0.15);border-radius:var(--radius-md);">
+                            <h4 style="color:#f97316;margin-bottom:8px;">📸 Caption Pro Tips</h4>
+                            <ul
+                                style="color:var(--text-secondary);font-size:0.9rem;line-height:1.8;list-style:none;padding:0;">
+                                <li>• First line is everything — it must hook before "...more"</li>
+                                <li>• Use 3-5 hashtags for Instagram, 3-5 for TikTok</li>
+                                <li>• Ask a question or add a CTA at the end</li>
+                                <li>• Post when your audience is most active (check analytics)</li>
+                                <li>• Schedule posts with <a href="https://buffer.com" target="_blank" rel="noopener"
+                                        style="color:var(--accent-purple);text-decoration:underline;">Buffer</a> for
+                                    maximum consistency</li>
+                            </ul>
+                        </div>
+
+                        <div class="tool-upsell-banner">
+                            <h4>🚀 Want 650+ Ready-Made Content Prompts?</h4>
+                            <p>Captions are just the start. Get <strong>The AI Prompt Vault 2.0</strong> — content
+                                creation, marketing, sales, and personal branding prompts for any platform.</p>
+                            <a href="https://aierasu.gumroad.com/l/prompt" class="btn btn--primary"
+                                style="background:var(--gradient-main);">Get The Vault — $19 →</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer style="padding:40px 0 20px;border-top:1px solid var(--border);">
+        <div class="container" style="text-align:center;">
+            <p style="color:var(--text-muted);font-size:0.85rem;">© 2026 <a href="../index.html"
+                    style="color:var(--accent-purple);">aierasu.com</a> — Empowering digital creators.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const canvas = document.getElementById('particles-canvas');
+            if (canvas) {
+                const ctx = canvas.getContext('2d');
+                let w, h;
+                function resize() { w = canvas.width = window.innerWidth; h = canvas.height = window.innerHeight; }
+                resize(); window.addEventListener('resize', resize);
+                class Particle {
+                    constructor() { this.reset(); }
+                    reset() { this.x = Math.random() * w; this.y = Math.random() * h; this.size = Math.random() * 2 + 0.5; this.speedY = Math.random() * -0.3 - 0.1; this.opacity = Math.random() * 0.5 + 0.1; }
+                    update() { this.y += this.speedY; if (this.y < -5) { this.reset(); this.y = h + 5; } }
+                    draw() { ctx.globalAlpha = this.opacity; ctx.fillStyle = '#f97316'; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); }
+                }
+                const particles = Array.from({ length: 50 }, () => new Particle());
+                (function animate() { ctx.clearRect(0, 0, w, h); particles.forEach(p => { p.update(); p.draw(); }); requestAnimationFrame(animate); })();
+            }
+            const nav = document.getElementById('nav');
+            window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 50));
+
+            const form = document.getElementById('captionForm');
+            const emailForm = document.getElementById('emailCaptureForm');
+            const emptyState = document.getElementById('emptyState');
+            const loadingState = document.getElementById('loadingState');
+            const resultsState = document.getElementById('resultsState');
+            const resultsList = document.getElementById('resultsList');
+            const blurredSection = document.getElementById('blurredSection');
+            const blurredItems = document.getElementById('blurredItems');
+            const unlockedSection = document.getElementById('unlockedSection');
+            const unlockedItems = document.getElementById('unlockedItems');
+
+            let allResults = [];
+
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const postAbout = document.getElementById('postAbout').value.trim();
+                const platform = document.getElementById('platform').value;
+                const tone = document.getElementById('captionTone').value;
+                emptyState.style.display = 'none';
+                resultsState.style.display = 'none';
+                loadingState.style.display = 'flex';
+                setTimeout(() => {
+                    allResults = generateCaptions(postAbout, platform, tone);
+                    loadingState.style.display = 'none';
+                    renderValueFirst(allResults);
+                    resultsState.style.display = 'block';
+                }, 2200);
+            });
+
+            function renderValueFirst(items) {
+                resultsList.innerHTML = '';
+                blurredItems.innerHTML = '';
+                unlockedSection.style.display = 'none';
+                blurredSection.style.display = 'block';
+                items.slice(0, 3).forEach((item, i) => resultsList.appendChild(createCaptionCard(item, i)));
+                items.slice(3).forEach((item, i) => blurredItems.appendChild(createCaptionCard(item, i + 3)));
+            }
+
+            emailForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const email = document.getElementById('userEmail').value;
+                const formData = new FormData();
+                formData.append('fields[email]', email);
+                formData.append('ml-submit', '1');
+                formData.append('anticsrf', 'true');
+                fetch('https://assets.mailerlite.com/jsonp/2165289/forms/181139570513937867/subscribe', {
+                    method: 'POST', body: formData, mode: 'no-cors'
+                }).catch(() => { });
+                blurredSection.style.display = 'none';
+                unlockedSection.style.display = 'block';
+                unlockedItems.innerHTML = '';
+                allResults.slice(3).forEach((item, i) => unlockedItems.appendChild(createCaptionCard(item, i + 3)));
+            });
+
+            function createCaptionCard(item, index) {
+                const div = document.createElement('div');
+                div.className = 'hook-result-item';
+                div.style.flexDirection = 'column';
+                div.style.alignItems = 'stretch';
+                div.style.gap = '12px';
+                const fullText = item.caption + '\n\n' + item.hashtags;
+                const safeText = fullText.replace(/`/g, "'").replace(/\\/g, '\\\\');
+                div.innerHTML = `
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+            <span style="font-size:0.75rem;font-weight:700;color:var(--text-muted);">Caption ${index + 1}</span>
+            <button class="btn-copy-hook" onclick="copyItem(this, \`${safeText}\`)">Copy All</button>
+          </div>
+          <p class="hook-result-text" style="white-space:pre-line;line-height:1.6;">${item.caption}</p>
+          <p style="font-size:0.8rem;color:var(--accent-purple);word-break:break-all;">${item.hashtags}</p>
+        `;
+                return div;
+            }
+
+            function generateCaptions(topic, platform, tone) {
+                const kw = topic.split(/[,.]/).map(s => s.trim()).filter(s => s.length > 3);
+                const mainKw = kw[0] || topic.substring(0, 40);
+                const shortKw = mainKw.split(' ').slice(0, 4).join(' ');
+
+                const hashtagSets = {
+                    instagram: ['#ai', '#automation', '#digitalmarketing', '#growthhacking', '#entrepreneur', '#onlinebusiness', '#contentcreator', '#passiveincome', '#aitools', '#marketing'],
+                    tiktok: ['#ai', '#learnontiktok', '#productivity', '#techtok', '#entrepreneurlife', '#sidehustle', '#motivation', '#viral', '#fyp', '#growth'],
+                    linkedin: ['#AI', '#Leadership', '#Innovation', '#Growth', '#B2B', '#Marketing', '#Automation', '#Entrepreneurship', '#DigitalTransformation', '#Productivity'],
+                    twitter: ['#AI', '#Tech', '#Marketing', '#Growth', '#Startup', '#Automation', '#Thread', '#BuildInPublic']
+                };
+
+                const tags = hashtagSets[platform] || hashtagSets.instagram;
+                const pickTags = (n) => tags.sort(() => Math.random() - 0.5).slice(0, n).join(' ');
+
+                const templates = {
+                    engaging: [
+                        { caption: `Stop scrolling. This is about ${shortKw} and it might change your perspective.\n\nMost people will ignore this. The 1% who don't will have an unfair advantage.\n\nHere's what nobody tells you 👇`, hashtags: pickTags(5) },
+                        { caption: `POV: You just discovered ${shortKw} and realized you were doing everything wrong.\n\nSave this for later. Trust me.`, hashtags: pickTags(5) },
+                        { caption: `I wish someone told me this about ${shortKw} 3 years ago.\n\nWould have saved me:\n• 100+ hours of wasted effort\n• $5,000+ in mistakes\n• Countless sleepless nights\n\nDon't make the same mistake I did ↓`, hashtags: pickTags(5) },
+                        { caption: `${shortKw} in 2026 is NOT what you think.\n\nHere are 3 things that actually work:\n\n1️⃣ [Start with the end goal]\n2️⃣ [Automate the boring stuff]\n3️⃣ [Double down on what converts]\n\nWhich one surprised you most? 👇`, hashtags: pickTags(5) },
+                        { caption: `Hot take: 90% of people approach ${shortKw} completely wrong.\n\nThey focus on tactics.\nThe winners focus on systems.\n\nHere's the system I use (steal it) ⬇️`, hashtags: pickTags(5) }
+                    ],
+                    educational: [
+                        { caption: `📚 ${shortKw} — A Simple Guide\n\nStep 1: Define your goal clearly\nStep 2: Research what works (not what's popular)\nStep 3: Execute consistently for 30 days\nStep 4: Measure, adjust, repeat\n\nThe secret? Consistency beats talent.`, hashtags: pickTags(5) },
+                        { caption: `Most people overcomplicate ${shortKw}.\n\nHere's the truth:\n\n✅ Keep it simple\n✅ Focus on 1 thing at a time\n✅ Track your results weekly\n❌ Stop chasing shiny objects\n\nSave this. You'll need it.`, hashtags: pickTags(5) },
+                        { caption: `"How do I get started with ${shortKw}?"\n\nI get this question daily. Here's my honest answer:\n\nDon't wait until you're "ready." Start messy. Start now.\n\nThe best time was yesterday. The second best time? This post. 🚀`, hashtags: pickTags(5) },
+                        { caption: `3 mistakes EVERYONE makes with ${shortKw}:\n\n1. They don't start (analysis paralysis)\n2. They copy others instead of testing\n3. They quit after 2 weeks\n\nDon't be #3. Consistency is your superpower.`, hashtags: pickTags(5) },
+                        { caption: `TIL: The biggest myth about ${shortKw} is that you need to be an expert to start.\n\nYou don't.\n\nYou need:\n• Curiosity\n• 30 minutes/day\n• A willingness to fail forward\n\nThat's it. Start today.`, hashtags: pickTags(5) }
+                    ],
+                    storytelling: [
+                        { caption: `6 months ago, I knew nothing about ${shortKw}.\n\nToday? It's completely changed the way I work.\n\nHere's the short version of what happened ↓\n\n(And what you can learn from my mistakes)`, hashtags: pickTags(5) },
+                        { caption: `True story:\n\nI was struggling with ${shortKw} for MONTHS. Nothing worked.\n\nThen I made ONE small change.\n\nThat single change led to everything you see today.\n\nThe change? I stopped overthinking and started doing.`, hashtags: pickTags(5) },
+                        { caption: `A year ago I posted about ${shortKw} and got 0 engagement.\n\nToday that same post format gets hundreds of saves.\n\nWhat changed? Not the algorithm.\n\nI changed. My approach changed. My consistency changed.\n\nDon't give up.`, hashtags: pickTags(5) },
+                        { caption: `The day I almost quit ${shortKw} was the day before everything changed.\n\nFunny how that works, right?\n\nIf you're in that "almost quit" phase — read this:\n\nYou're closer than you think. Keep going. 💪`, hashtags: pickTags(5) },
+                        { caption: `They told me ${shortKw} was saturated.\n\nThey told me I was too late.\n\nThey told me to "be realistic."\n\nI'm glad I didn't listen.\n\nNeither should you. Here's why ↓`, hashtags: pickTags(5) }
+                    ],
+                    promotional: [
+                        { caption: `🚀 Just dropped something HUGE for anyone into ${shortKw}.\n\nIt's the resource I wish I had when I started.\n\n🔥 What's inside:\n• Ready-to-use templates\n• Step-by-step frameworks\n• The exact playbook I use daily\n\nLink in bio ↓`, hashtags: pickTags(5) },
+                        { caption: `If you're spending 5+ hours/week on ${shortKw}...\n\nI built something that cuts it down to 30 minutes.\n\nNo fluff. No course. Just plug-and-play templates.\n\n[Link in bio] — limited launch price.`, hashtags: pickTags(5) },
+                        { caption: `This took me 200+ hours to build.\n\nYou can use it in 5 minutes.\n\n${shortKw} made simple.\n\n✅ Copy-paste ready\n✅ Works with any AI tool\n✅ Lifetime updates\n\nGrab it before the price goes up 🔗`, hashtags: pickTags(5) },
+                        { caption: `"I've been looking for something like this for ${shortKw}"\n\nThat's what my last buyer said.\n\nIf you've been:\n❌ Spending hours on trial and error\n❌ Getting mediocre AI outputs\n❌ Wishing you had a shortcut\n\nThis is your sign ↓`, hashtags: pickTags(5) },
+                        { caption: `LAUNCH ALERT 🚨\n\nMy new ${shortKw} toolkit is LIVE.\n\nEarly bird price: $19 (goes to $39)\n\n4.9★ from early users.\n\nDon't miss this — link in bio 🔗`, hashtags: pickTags(5) }
+                    ]
+                };
+                return templates[tone] || templates.engaging;
+            }
+        });
+
+        window.copyItem = function (btn, text) {
+            const copyText = text + '\n\n✦ Generated by aierasu.com';
+            navigator.clipboard.writeText(copyText).then(() => {
+                const orig = btn.innerText;
+                btn.innerText = 'Copied! ✓';
+                btn.style.color = '#34d399';
+                btn.style.borderColor = '#34d399';
+                setTimeout(() => { btn.innerText = orig; btn.style.color = ''; btn.style.borderColor = ''; }, 2000);
+            });
+        };
+    </script>
+</body>
+
+</html>

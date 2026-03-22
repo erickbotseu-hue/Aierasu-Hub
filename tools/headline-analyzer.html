@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Headline Analyzer — Free AI Tool | aierasu.com</title>
+    <meta name="description"
+        content="Score your headline for emotional power, SEO strength, and click-through potential. Free AI headline analyzer by Aierasu.">
+    <meta property="og:title" content="Headline Analyzer — Free AI Tool | Aierasu Hub">
+    <meta property="og:description"
+        content="Is your headline strong enough? Get an instant score and 3 AI-improved variations — completely free.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://aierasu.com/headline-analyzer.html">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Outfit:wght@500;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+    <canvas id="particles-canvas"></canvas>
+
+    <nav class="nav" id="nav">
+        <div class="container nav__inner">
+            <a href="../index.html" class="tool-backlink">
+                <div class="tool-backlink-icon"></div>
+                <span>← Back to Aierasu Hub</span>
+            </a>
+            <a href="https://aierasu.gumroad.com/l/prompt" class="nav__cta"
+                style="font-size:0.8rem;padding:8px 18px;">Get The Vault — $19</a>
+        </div>
+    </nav>
+
+    <main class="container" style="padding-top: 100px;">
+        <div class="tool-page-layout">
+
+            <section class="tool-input-section">
+                <div class="tool-header">
+                    <div
+                        style="display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:999px;font-size:0.8rem;font-weight:600;color:#34d399;background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.2);margin-bottom:16px;">
+                        ✦ FREE TOOL
+                    </div>
+                    <h1>Headline <span class="gradient-text">Analyzer</span></h1>
+                    <p class="section-subtitle">Is your headline strong enough to stop the scroll? Enter any headline
+                        and get an instant score on emotional power, clarity, SEO strength, and 3 AI-improved
+                        variations.</p>
+                </div>
+
+                <div
+                    style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-xl);padding:32px;">
+                    <form id="analyzerForm" class="form-group" style="gap:20px;">
+                        <div class="form-group">
+                            <label for="headline">Your headline</label>
+                            <input id="headline" class="tool-input" type="text"
+                                placeholder="Example: 10 Ways AI Can Save Your Business Hours Every Week" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="headlineType">Headline type</label>
+                            <select id="headlineType" class="tool-input">
+                                <option value="blog">📝 Blog Post / Article</option>
+                                <option value="email">✉️ Email Subject Line</option>
+                                <option value="social">📱 Social Media Post</option>
+                                <option value="ad">🎯 Ad / Landing Page</option>
+                                <option value="youtube">🎬 YouTube Video Title</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn--primary btn--glow btn-tool-generate">
+                            📊 Analyze My Headline
+                        </button>
+                    </form>
+                </div>
+            </section>
+
+            <section class="tool-output-section">
+                <div class="tool-output-card" id="outputContainer">
+
+                    <div class="tool-empty-state" id="emptyState">
+                        <div class="tool-empty-state__icon">📊</div>
+                        <h3 style="margin-bottom:8px;">Your headline score will appear here</h3>
+                        <p>Enter a headline and hit Analyze.</p>
+                    </div>
+
+                    <div class="tool-loading-state" id="loadingState" style="display:none;">
+                        <div class="tool-spinner"></div>
+                        <h3 style="font-weight:700;">Analyzing headline psychology...</h3>
+                        <p style="color:var(--text-secondary);margin-top:8px;">Scoring across 4 dimensions of headline
+                            effectiveness.</p>
+                    </div>
+
+                    <div id="resultsState" style="display:none;">
+                        <!-- Overall Score -->
+                        <div style="text-align:center;margin-bottom:28px;">
+                            <h3 style="margin-bottom:8px;font-weight:700;">Your Headline Score</h3>
+                            <div id="scoreCircle"
+                                style="width:120px;height:120px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:2.5rem;font-weight:900;margin:12px 0;">
+                            </div>
+                            <p id="scoreLabel" style="font-weight:600;font-size:1rem;"></p>
+                        </div>
+
+                        <!-- Dimension scores -->
+                        <div id="dimensionScores"
+                            style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px;"></div>
+
+                        <!-- Improvement tips (free) -->
+                        <div id="tipsList"
+                            style="margin-bottom:24px;padding:20px;background:rgba(99,102,241,0.06);border:1px solid rgba(99,102,241,0.15);border-radius:var(--radius-md);">
+                            <h4 style="color:var(--accent-blue);margin-bottom:12px;">💡 How to Improve</h4>
+                            <ul id="tipsContent"
+                                style="color:var(--text-secondary);font-size:0.9rem;line-height:1.8;list-style:none;padding:0;">
+                            </ul>
+                        </div>
+
+                        <!-- AI-improved variations (blurred) -->
+                        <h4 style="margin-bottom:12px;font-weight:700;">✨ AI-Improved Variations:</h4>
+                        <div id="freeVariations" style="display:flex;flex-direction:column;gap:12px;"></div>
+
+                        <div id="blurredSection" style="position:relative;margin-top:12px;">
+                            <div id="blurredItems"
+                                style="display:flex;flex-direction:column;gap:12px;filter:blur(6px);pointer-events:none;user-select:none;">
+                            </div>
+                            <div
+                                style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(10,10,20,0.6);border-radius:var(--radius-md);backdrop-filter:blur(2px);">
+                                <h4 style="color:#fff;font-size:1.1rem;margin-bottom:4px;">🔒 2 more variations locked
+                                </h4>
+                                <p style="color:var(--text-secondary);font-size:0.85rem;margin-bottom:16px;">Enter your
+                                    email to unlock all 5 improved versions</p>
+                                <form id="emailCaptureForm" style="display:flex;gap:8px;width:90%;max-width:400px;">
+                                    <input type="email" id="userEmail" class="tool-input" placeholder="your@email.com"
+                                        required style="flex:1;margin:0;">
+                                    <button type="submit" class="btn btn--primary"
+                                        style="white-space:nowrap;padding:10px 18px;">Unlock 🔓</button>
+                                </form>
+                                <p style="font-size:0.75rem;margin-top:8px;color:var(--text-muted);opacity:0.5;">🔒 Zero
+                                    spam. Unsubscribe anytime.</p>
+                            </div>
+                        </div>
+
+                        <div id="unlockedSection" style="display:none;">
+                            <div id="unlockedItems" style="display:flex;flex-direction:column;gap:12px;"></div>
+                        </div>
+
+                        <div class="tool-upsell-banner" style="margin-top:24px;">
+                            <h4>🚀 Want AI to Write ALL Your Content?</h4>
+                            <p>Headlines are just the start. Get <strong>The AI Prompt Vault 2.0</strong> — 650+ prompts
+                                for blog posts, emails, ads, social media, and more. Copy-paste ready.</p>
+                            <a href="https://aierasu.gumroad.com/l/prompt" class="btn btn--primary"
+                                style="background:var(--gradient-main);">Get The Vault — $19 →</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer style="padding:40px 0 20px;border-top:1px solid var(--border);">
+        <div class="container" style="text-align:center;">
+            <p style="color:var(--text-muted);font-size:0.85rem;">© 2026 <a href="../index.html"
+                    style="color:var(--accent-purple);">aierasu.com</a> — Empowering digital creators.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const canvas = document.getElementById('particles-canvas');
+            if (canvas) {
+                const ctx = canvas.getContext('2d');
+                let w, h;
+                function resize() { w = canvas.width = window.innerWidth; h = canvas.height = window.innerHeight; }
+                resize(); window.addEventListener('resize', resize);
+                class Particle {
+                    constructor() { this.reset(); }
+                    reset() { this.x = Math.random() * w; this.y = Math.random() * h; this.size = Math.random() * 2 + 0.5; this.speedY = Math.random() * -0.3 - 0.1; this.opacity = Math.random() * 0.5 + 0.1; }
+                    update() { this.y += this.speedY; if (this.y < -5) { this.reset(); this.y = h + 5; } }
+                    draw() { ctx.globalAlpha = this.opacity; ctx.fillStyle = '#10b981'; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); }
+                }
+                const particles = Array.from({ length: 50 }, () => new Particle());
+                (function animate() { ctx.clearRect(0, 0, w, h); particles.forEach(p => { p.update(); p.draw(); }); requestAnimationFrame(animate); })();
+            }
+            const nav = document.getElementById('nav');
+            window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 50));
+
+            const form = document.getElementById('analyzerForm');
+            const emailForm = document.getElementById('emailCaptureForm');
+            const emptyState = document.getElementById('emptyState');
+            const loadingState = document.getElementById('loadingState');
+            const resultsState = document.getElementById('resultsState');
+
+            let allVariations = [];
+
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const headline = document.getElementById('headline').value.trim();
+                const type = document.getElementById('headlineType').value;
+                emptyState.style.display = 'none';
+                resultsState.style.display = 'none';
+                loadingState.style.display = 'flex';
+                setTimeout(() => {
+                    const analysis = analyzeHeadline(headline, type);
+                    loadingState.style.display = 'none';
+                    renderResults(analysis);
+                    resultsState.style.display = 'block';
+                }, 2000);
+            });
+
+            emailForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const email = document.getElementById('userEmail').value;
+                const formData = new FormData();
+                formData.append('fields[email]', email);
+                formData.append('ml-submit', '1');
+                formData.append('anticsrf', 'true');
+                fetch('https://assets.mailerlite.com/jsonp/2165289/forms/181139570513937867/subscribe', {
+                    method: 'POST', body: formData, mode: 'no-cors'
+                }).catch(() => { });
+                document.getElementById('blurredSection').style.display = 'none';
+                document.getElementById('unlockedSection').style.display = 'block';
+                const unlockedItems = document.getElementById('unlockedItems');
+                unlockedItems.innerHTML = '';
+                allVariations.slice(3).forEach((text, i) => unlockedItems.appendChild(createItem(text, i + 3)));
+            });
+
+            function analyzeHeadline(headline, type) {
+                const words = headline.split(/\s+/);
+                const wordCount = words.length;
+                const charCount = headline.length;
+                const hasNumber = /\d/.test(headline);
+                const hasPowerWord = /secret|proven|ultimate|instant|free|exclusive|guaranteed|shocking|discover|hack|mistake|truth|hidden|simple|easy|fast|best|worst|never|always|stop|start|why|how/i.test(headline);
+                const hasEmotionWord = /love|hate|fear|amazing|incredible|shocking|beautiful|ugly|terrifying|exciting|inspiring|embarrassing|frustrating|devastat/i.test(headline);
+                const hasQuestion = /\?$/.test(headline);
+                const startsWithNumber = /^\d/.test(headline);
+
+                // Scoring
+                let clarity = 50;
+                if (wordCount >= 6 && wordCount <= 12) clarity += 25;
+                else if (wordCount >= 4 && wordCount <= 15) clarity += 15;
+                if (charCount <= 70) clarity += 15;
+                if (!headline.includes('  ')) clarity += 10;
+                clarity = Math.min(clarity, 100);
+
+                let emotion = 30;
+                if (hasEmotionWord) emotion += 25;
+                if (hasPowerWord) emotion += 20;
+                if (hasQuestion) emotion += 10;
+                if (headline.includes('!')) emotion += 5;
+                if (headline === headline.toUpperCase() && headline.length > 5) emotion += 5;
+                emotion = Math.min(emotion, 100);
+
+                let seo = 40;
+                if (wordCount >= 6) seo += 15;
+                if (charCount >= 30 && charCount <= 60) seo += 20;
+                if (hasNumber) seo += 10;
+                if (startsWithNumber) seo += 5;
+                if (headline.toLowerCase().includes('how')) seo += 5;
+                if (headline.toLowerCase().includes('why')) seo += 5;
+                seo = Math.min(seo, 100);
+
+                let clickPower = 35;
+                if (hasPowerWord) clickPower += 20;
+                if (hasNumber) clickPower += 10;
+                if (hasQuestion) clickPower += 10;
+                if (startsWithNumber) clickPower += 5;
+                if (charCount >= 20 && charCount <= 65) clickPower += 15;
+                if (hasEmotionWord) clickPower += 5;
+                clickPower = Math.min(clickPower, 100);
+
+                const overall = Math.round((clarity + emotion + seo + clickPower) / 4);
+
+                // Tips
+                const tips = [];
+                if (!hasNumber) tips.push('Add a specific number (e.g., "7 Ways..." or "in 30 Days")');
+                if (!hasPowerWord) tips.push('Include a power word: "proven", "secret", "ultimate", "instant"');
+                if (!hasEmotionWord) tips.push('Add emotional impact: "shocking", "incredible", "devastating"');
+                if (wordCount > 12) tips.push('Shorten your headline — aim for 6-10 words');
+                if (wordCount < 5) tips.push('Your headline is too short — add more context');
+                if (charCount > 70) tips.push('Keep under 60 characters for better SEO visibility');
+                if (!hasQuestion && overall < 70) tips.push('Consider turning it into a question for more engagement');
+                if (tips.length === 0) tips.push('Great headline! Try A/B testing with a different emotional hook.');
+
+                // Variations
+                const variations = generateVariations(headline, words, hasNumber);
+                allVariations = variations;
+
+                return { overall, clarity, emotion, seo, clickPower, tips, variations };
+            }
+
+            function generateVariations(headline, words, hasNumber) {
+                const core = words.slice(0, 5).join(' ');
+                const variations = [];
+                if (!hasNumber) {
+                    variations.push(`7 ${headline.charAt(0).toLowerCase() + headline.slice(1).replace(/^\d+\s*/, '')}`);
+                } else {
+                    variations.push(headline.replace(/\d+/, n => String(parseInt(n) + 3)));
+                }
+                variations.push(`The Secret Behind ${core} (Nobody Talks About This)`);
+                variations.push(`How ${core} Changed Everything I Knew About Success`);
+                variations.push(`Stop! ${headline} — Here's What You're Missing`);
+                variations.push(`${headline} (And Why 93% of People Get It Wrong)`);
+                return variations;
+            }
+
+            function renderResults(analysis) {
+                // Score circle
+                const scoreCircle = document.getElementById('scoreCircle');
+                const color = analysis.overall >= 80 ? '#10b981' : analysis.overall >= 60 ? '#f59e0b' : '#ef4444';
+                scoreCircle.style.background = `conic-gradient(${color} ${analysis.overall * 3.6}deg, rgba(255,255,255,0.05) 0deg)`;
+                scoreCircle.style.color = color;
+                scoreCircle.textContent = analysis.overall;
+
+                const label = analysis.overall >= 80 ? '🔥 Excellent!' : analysis.overall >= 60 ? '👍 Good — room to improve' : '⚠️ Needs work';
+                document.getElementById('scoreLabel').textContent = label;
+                document.getElementById('scoreLabel').style.color = color;
+
+                // Dimensions
+                const dims = document.getElementById('dimensionScores');
+                dims.innerHTML = '';
+                [
+                    { name: 'Clarity', score: analysis.clarity, icon: '🎯' },
+                    { name: 'Emotional Power', score: analysis.emotion, icon: '💥' },
+                    { name: 'SEO Strength', score: analysis.seo, icon: '🔍' },
+                    { name: 'Click Power', score: analysis.clickPower, icon: '🖱️' }
+                ].forEach(d => {
+                    const c = d.score >= 70 ? '#10b981' : d.score >= 50 ? '#f59e0b' : '#ef4444';
+                    dims.innerHTML += `
+            <div style="padding:16px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-md);">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+                <span style="font-size:0.85rem;font-weight:600;">${d.icon} ${d.name}</span>
+                <span style="font-weight:800;color:${c};">${d.score}</span>
+              </div>
+              <div style="height:6px;background:rgba(255,255,255,0.05);border-radius:3px;overflow:hidden;">
+                <div style="height:100%;width:${d.score}%;background:${c};border-radius:3px;transition:width 0.8s ease;"></div>
+              </div>
+            </div>`;
+                });
+
+                // Tips
+                const tipsContent = document.getElementById('tipsContent');
+                tipsContent.innerHTML = analysis.tips.map(t => `<li>• ${t}</li>`).join('');
+
+                // Variations (Value First)
+                const freeVars = document.getElementById('freeVariations');
+                freeVars.innerHTML = '';
+                analysis.variations.slice(0, 3).forEach((v, i) => freeVars.appendChild(createItem(v, i)));
+
+                const blurredItems = document.getElementById('blurredItems');
+                blurredItems.innerHTML = '';
+                analysis.variations.slice(3).forEach((v, i) => blurredItems.appendChild(createItem(v, i + 3)));
+                document.getElementById('blurredSection').style.display = 'block';
+                document.getElementById('unlockedSection').style.display = 'none';
+            }
+
+            function createItem(text, index) {
+                const div = document.createElement('div');
+                div.className = 'hook-result-item';
+                const safeText = text.replace(/`/g, "'").replace(/\\/g, '\\\\');
+                div.innerHTML = `
+          <span class="hook-result-text">${text}</span>
+          <button class="btn-copy-hook" onclick="copyItem(this, \`${safeText}\`)">Copy</button>
+        `;
+                return div;
+            }
+        });
+
+        window.copyItem = function (btn, text) {
+            const copyText = text + '\n\n✦ Analyzed by aierasu.com';
+            navigator.clipboard.writeText(copyText).then(() => {
+                const orig = btn.innerText;
+                btn.innerText = 'Copied! ✓';
+                btn.style.color = '#34d399';
+                btn.style.borderColor = '#34d399';
+                setTimeout(() => { btn.innerText = orig; btn.style.color = ''; btn.style.borderColor = ''; }, 2000);
+            });
+        };
+    </script>
+</body>
+
+</html>

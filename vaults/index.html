@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aierasu Vaults | Premium Mastery</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Outfit:wght@500;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- CSS -->
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body class="animate-fade-in">
+
+    <!-- Floating Particles Canvas -->
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- Navigation -->
+    <nav class="nav" id="nav">
+      <div class="container nav__inner">
+        <a href="../index.html" class="nav__logo" style="text-decoration: none;">
+          <div class="nav__logo-icon" style="background: rgba(255,255,255,0.1); display:flex; align-items:center; justify-content:center;">←</div>
+          <span>Back to Hub</span>
+        </a>
+      </div>
+    </nav>
+
+    <main class="container" style="position: relative; z-index: 1; padding-top: 120px; padding-bottom: 100px;">
+        <section class="section-header anim" style="text-align: center; margin-bottom: 4rem;">
+            <h1 class="hero__title">Aierasu <span class="gradient-text" style="background: linear-gradient(135deg, #FDE68A 0%, #F59E0B 100%); -webkit-background-clip: text; background-clip: text; color: transparent;">Vaults</span></h1>
+            <p class="section-subtitle" style="max-width: 600px; margin: 0 auto;">Acquire the exact systems and knowledge required to scale your digital income.</p>
+        </section>
+
+        <!-- Vaults Grid -->
+        <section>
+            <div class="free-tools__grid anim" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem;">
+                <!-- Vault 1: AI Prompt Vault -->
+                <div class="free-tool-card" style="display: flex; flex-direction: column; border-color: rgba(245, 158, 11, 0.3);">
+                    <div class="free-tool-card__status" style="background: rgba(245, 158, 11, 0.15); color: #FBBF24;">💎 PREMIUM</div>
+                    <div class="free-tool-card__icon" style="font-size: 2.5rem; background: rgba(245, 158, 11, 0.1);">🧠</div>
+                    <h3 class="free-tool-card__title">The AI Prompt Vault</h3>
+                    <p class="free-tool-card__desc">600+ Expertly engineered prompts, AI automation workflows, and money-making blueprints. Your ultimate digital brain.</p>
+                    <a href="https://aierasu.gumroad.com/l/prompt" class="btn btn--primary" target="_blank"
+                        style="margin-top: auto; background: linear-gradient(135deg, #F59E0B, #D97706); border:none;">Get Instant Access — $19</a>
+                </div>
+
+                <!-- Vault 2: Viral Hook Masterclass -->
+                <div class="free-tool-card" style="display: flex; flex-direction: column; border-color: rgba(245, 158, 11, 0.3);">
+                    <div class="free-tool-card__status" style="background: rgba(245, 158, 11, 0.15); color: #FBBF24;">💎 PREMIUM</div>
+                    <div class="free-tool-card__icon" style="font-size: 2.5rem; background: rgba(245, 158, 11, 0.1);">📱</div>
+                    <h3 class="free-tool-card__title">The Viral Hook Masterclass & 500 Scripts</h3>
+                    <p class="free-tool-card__desc">Stop losing views in the first 3 seconds. 500 copy-paste hook scripts categorized by psychology trigger + a mini-masterclass.</p>
+                    <a href="https://aierasu.gumroad.com/l/viral-accelerator" class="btn btn--primary" target="_blank"
+                        style="margin-top: auto; background: linear-gradient(135deg, #F59E0B, #D97706); border:none;">Get Instant Access — $27</a>
+                </div>
+
+                 <!-- Vault 3: Real Estate AI Vault -->
+                 <div class="free-tool-card" style="display: flex; flex-direction: column; border-color: rgba(245, 158, 11, 0.3);">
+                    <div class="free-tool-card__status" style="background: rgba(245, 158, 11, 0.15); color: #FBBF24;">💎 PREMIUM</div>
+                    <div class="free-tool-card__icon" style="font-size: 2.5rem; background: rgba(245, 158, 11, 0.1);">🏠</div>
+                    <h3 class="free-tool-card__title">Real Estate AI Vault</h3>
+                    <p class="free-tool-card__desc">Automate listings, leads, and follow-ups in Real Estate using artificial intelligence.</p>
+                    <a href="#" class="btn btn--primary" target="_blank"
+                        style="margin-top: auto; background: linear-gradient(135deg, #F59E0B, #D97706); border:none;">Coming Soon — Join Waitlist</a>
+                </div>
+
+                 <!-- Vault 4: Future -->
+                <div class="free-tool-card" style="opacity: 0.6; display: flex; flex-direction: column;">
+                    <div class="free-tool-card__status">✦ COMING SOON</div>
+                    <div class="free-tool-card__icon" style="font-size: 2.5rem; background: rgba(245, 158, 11, 0.1);">💰</div>
+                    <h3 class="free-tool-card__title">The B2B Sales Vault</h3>
+                    <p class="free-tool-card__desc">150 Prompts to close high-ticket clients. Cold outreach templates, objection handling scripts, and closing frameworks.</p>
+                    <button class="btn btn--secondary" disabled style="margin-top: auto; opacity: 0.5; cursor: not-allowed;">Launching Soon — $49</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="container text-center" style="padding: 4rem 0 2rem; border-top: 1px solid var(--border); margin-top: 2rem;">
+        <p class="subtitle" style="font-size: 0.9rem; color: var(--text-muted);">© 2026 Aierasu Vaults.</p>
+    </footer>
+
+    <script src="../script.js"></script>
+</body>
+</html>

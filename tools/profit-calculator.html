@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Profit Margin & Pricing Calculator | Aierasu Tools</title>
+    <meta name="description" content="Calculate your true profit margins, optimal pricing, and taxes instantly.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Outfit:wght@500;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS Base -->
+    <link rel="stylesheet" href="../style.css">
+    
+    <!-- Calculator Specific Styles -->
+    <style>
+        .calculator-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: rgba(22, 22, 31, 0.6);
+            border: 1px solid rgba(168, 85, 247, 0.2);
+            border-radius: var(--radius-xl);
+            padding: 40px;
+            box-shadow: 0 0 60px rgba(168, 85, 247, 0.05);
+            backdrop-filter: blur(10px);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .calculator-container {
+                grid-template-columns: 1fr;
+                padding: 20px;
+            }
+        }
+
+        .calc-group {
+            margin-bottom: 24px;
+        }
+
+        .calc-label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .calc-input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .calc-prefix {
+            position: absolute;
+            left: 16px;
+            color: var(--text-muted);
+            font-weight: 600;
+            font-family: var(--font-mono);
+        }
+
+        .calc-suffix {
+            position: absolute;
+            right: 16px;
+            color: var(--text-muted);
+            font-weight: 600;
+            font-family: var(--font-mono);
+        }
+
+        .calc-input {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 14px 16px;
+            color: var(--text-primary);
+            font-family: var(--font-mono);
+            font-size: 1.1rem;
+            transition: all 0.3s;
+        }
+
+        .calc-input.has-prefix { padding-left: 36px; }
+        .calc-input.has-suffix { padding-right: 36px; }
+
+        .calc-input:focus {
+            outline: none;
+            border-color: var(--accent-purple);
+            box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.1);
+        }
+
+        /* Results Panel */
+        .results-panel {
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: var(--radius-lg);
+            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .results-panel::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 3px;
+            background: var(--gradient-main);
+        }
+
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .result-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+            margin-top: 10px;
+        }
+
+        .result-label {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .result-value {
+            font-size: 1.4rem;
+            font-weight: 800;
+            font-family: var(--font-mono);
+            color: var(--text-primary);
+        }
+
+        .result-value.profit {
+            color: var(--accent-green);
+        }
+        
+        .result-value.loss {
+            color: var(--accent-red);
+        }
+
+        .result-item.highlight {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            padding: 20px;
+            border-radius: var(--radius-md);
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .result-item.highlight .result-label {
+            color: var(--accent-green);
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .result-item.highlight .result-value {
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, #10b981, #34d399);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .ai-insights {
+            margin-top: 20px;
+            padding: 16px;
+            background: rgba(168, 85, 247, 0.1);
+            border-radius: var(--radius-md);
+            border-left: 3px solid var(--accent-purple);
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        .ai-insights strong {
+            color: var(--text-primary);
+        }
+    </style>
+</head>
+
+<body class="animate-fade-in">
+
+    <!-- Floating Particles Canvas -->
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- Navigation -->
+    <nav class="nav" id="nav">
+      <div class="container nav__inner">
+        <a href="tools/index.html" class="nav__logo" style="text-decoration: none;">
+          <div class="nav__logo-icon" style="background: rgba(255,255,255,0.1); display:flex; align-items:center; justify-content:center;">←</div>
+          <span>Back to Tools</span>
+        </a>
+      </div>
+    </nav>
+
+    <main class="container" style="position: relative; z-index: 1; padding-top: 120px; padding-bottom: 100px;">
+        <section class="section-header anim" style="text-align: center; margin-bottom: 3rem;">
+            <div class="section-label">⚡ Micro-SaaS Tool</div>
+            <h1 class="hero__title">AI Profit Margin <span class="gradient-text">Calculator</span></h1>
+            <p class="section-subtitle" style="max-width: 600px; margin: 0 auto;">Enter your costs and target price to instantly calculate your true profit, margins, and get AI-driven pricing insights.</p>
+        </section>
+
+        <!-- Calculator UI -->
+        <section class="anim">
+            <div class="calculator-container">
+                <!-- Inputs -->
+                <div class="calc-inputs">
+                    <h3 style="margin-bottom: 24px; font-size: 1.2rem; display: flex; align-items: center; gap: 8px;">
+                        <span>⚙️</span> Your Financials
+                    </h3>
+
+                    <div class="calc-group">
+                        <label class="calc-label" for="cost-price">Cost to Produce/Acquire (COGS)</label>
+                        <div class="calc-input-wrapper">
+                            <span class="calc-prefix">$</span>
+                            <input type="number" id="cost-price" class="calc-input has-prefix" placeholder="0.00" step="0.01" value="50">
+                        </div>
+                    </div>
+
+                    <div class="calc-group">
+                        <label class="calc-label" for="selling-price">Selling Price (Revenue)</label>
+                        <div class="calc-input-wrapper">
+                            <span class="calc-prefix">$</span>
+                            <input type="number" id="selling-price" class="calc-input has-prefix" placeholder="0.00" step="0.01" value="120">
+                        </div>
+                    </div>
+
+                    <div class="calc-group">
+                        <label class="calc-label" for="marketing-cost">Marketing / Acquisition Cost (CPA)</label>
+                        <div class="calc-input-wrapper">
+                            <span class="calc-prefix">$</span>
+                            <input type="number" id="marketing-cost" class="calc-input has-prefix" placeholder="0.00" step="0.01" value="15">
+                        </div>
+                    </div>
+
+                    <div class="calc-group">
+                        <label class="calc-label" for="tax-rate">Estimated Tax / Fees Rate</label>
+                        <div class="calc-input-wrapper">
+                            <input type="number" id="tax-rate" class="calc-input has-suffix" placeholder="0" step="0.1" value="5">
+                            <span class="calc-suffix">%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Results -->
+                <div class="results-panel">
+                    <h3 style="font-size: 1.2rem; display: flex; align-items: center; gap: 8px; margin-bottom: 10px;">
+                        <span>📊</span> Profitability Report
+                    </h3>
+
+                    <div class="result-item">
+                        <span class="result-label">Gross Revenue</span>
+                        <span class="result-value" id="res-revenue">$120.00</span>
+                    </div>
+
+                    <div class="result-item">
+                        <span class="result-label">Total Costs (COGS + CPA + Fees)</span>
+                        <span class="result-value" id="res-costs" style="color: var(--accent-red);">-$71.00</span>
+                    </div>
+
+                    <div class="result-item">
+                        <span class="result-label">Gross Margin</span>
+                        <span class="result-value" id="res-margin">58.33%</span>
+                    </div>
+
+                    <div class="result-item highlight">
+                        <span class="result-label">Net Profit (Per Unit)</span>
+                        <span class="result-value profit" id="res-profit">$49.00</span>
+                    </div>
+
+                    <!-- AI Insights Box -->
+                    <div class="ai-insights" id="ai-insight-box">
+                        <strong>🤖 AI Pricing Insight:</strong> <span id="res-insight">Your margin is healthy! A standard software or digital product margin should aim for 70%+, whereas physical goods typically sit around 30%-50%. You have scalable unit economics.</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Detailed Breakdown -->
+        <section class="anim" style="margin-top: 4rem; max-width: 900px; margin-left: auto; margin-right: auto;">
+             <div style="background: rgba(0,0,0,0.2); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 24px;">
+                <h4 style="margin-bottom: 16px; color: var(--text-primary);">Why knowing your True Margin matters</h4>
+                <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6;">
+                    Most beginners calculate profit simply as <code>Price - Cost</code>. They forget to account for Customer Acquisition Cost (CPA), platform fees (like Stripe/PayPal ~3%), and local taxes. This calculator factors in total expenses so you don't scale a losing campaign into bankruptcy.
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="container text-center" style="padding: 4rem 0 2rem; border-top: 1px solid var(--border); margin-top: 2rem;">
+        <p class="subtitle" style="font-size: 0.9rem; color: var(--text-muted);">© 2026 Aierasu Tools.</p>
+    </footer>
+
+    <script src="../script.js"></script>
+    <script>
+        // Form Elements
+        const costInput = document.getElementById('cost-price');
+        const priceInput = document.getElementById('selling-price');
+        const cpaInput = document.getElementById('marketing-cost');
+        const taxInput = document.getElementById('tax-rate');
+
+        // Result Elements
+        const resRevenue = document.getElementById('res-revenue');
+        const resCosts = document.getElementById('res-costs');
+        const resMargin = document.getElementById('res-margin');
+        const resProfit = document.getElementById('res-profit');
+        const resInsight = document.getElementById('res-insight');
+
+        function formatCurrency(num) {
+            return '$' + num.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+
+        function calculateProfit() {
+            const cost = parseFloat(costInput.value) || 0;
+            const price = parseFloat(priceInput.value) || 0;
+            const cpa = parseFloat(cpaInput.value) || 0;
+            const taxRate = parseFloat(taxInput.value) || 0;
+
+            // Calculations
+            const taxesAndFees = price * (taxRate / 100);
+            const totalCosts = cost + cpa + taxesAndFees;
+            const netProfit = price - totalCosts;
+            
+            let margin = 0;
+            if (price > 0) {
+                margin = (netProfit / price) * 100;
+            }
+
+            // Update UI
+            resRevenue.textContent = formatCurrency(price);
+            resCosts.textContent = '-' + formatCurrency(totalCosts);
+            resMargin.textContent = margin.toFixed(2) + '%';
+            
+            resProfit.textContent = formatCurrency(Math.abs(netProfit));
+            if(netProfit < 0) {
+                resProfit.textContent = '-' + resProfit.textContent;
+                resProfit.className = 'result-value loss';
+            } else {
+                resProfit.className = 'result-value profit';
+            }
+
+            // Simple AI Logic Insight
+            let insightText = '';
+            if (netProfit < 0) {
+                insightText = "Warning: You are taking a loss on every sale. You need to either increase your Selling Price, reduce your Cost of Goods, or lower your marketing CPA immediately.";
+            } else if (margin < 20) {
+                insightText = "Your margins are razor-thin (< 20%). This leaves very little room for error or scaling ad campaigns. Consider raising prices to increase your buffer.";
+            } else if (margin >= 20 && margin <= 50) {
+                insightText = "Healthy margins for a physical product or traditional service business. If you are selling digital products, there's still room for cost optimization.";
+            } else if (margin > 50 && margin < 80) {
+                insightText = "Excellent margins. You have a highly profitable offer with strong unit economics, allowing you to aggressively spend on marketing to acquire customers.";
+            } else {
+                insightText = "Incredible margins (> 80%). Typical of highly scalable SaaS or purely digital info-products. You have essentially zero marginal costs. Scale as fast as possible.";
+            }
+            resInsight.textContent = insightText;
+        }
+
+        // Event Listeners
+        [costInput, priceInput, cpaInput, taxInput].forEach(input => {
+            input.addEventListener('input', calculateProfit);
+        });
+
+        // Initial Calculation
+        calculateProfit();
+    </script>
+</body>
+</html>
