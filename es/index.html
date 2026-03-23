@@ -174,7 +174,7 @@
       const catSelect = document.getElementById('prompt-category');
       
       try {
-        const res = await fetch('/prompts.json');
+        const res = await fetch('/es/prompts-es.json');
         const prompts = await res.json();
         
         const categories = [...new Set(prompts.map(p => p.category))];

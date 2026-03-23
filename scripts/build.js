@@ -219,18 +219,32 @@ function ensureDir(dir) {
   if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
 }
 
+const PROMPTS_OUT_EN = path.join(ROOT_DIR, 'prompts');
+const PROMPTS_OUT_ES = path.join(ROOT_DIR, 'es', 'prompts');
+
+// 1. Generate English Prompts
 promptsData.forEach(p => {
   if (!p.slug) {
     console.warn("Skipping prompt missing a slug:", p.title);
     return;
   }
-  const enDir = path.join(ROOT_DIR, 'prompts', p.slug);
-  const esDir = path.join(ROOT_DIR, 'es', 'prompts', p.slug);
+  const enDir = path.join(PROMPTS_OUT_EN, p.slug);
   ensureDir(enDir);
-  ensureDir(esDir);
-
   fs.writeFileSync(path.join(enDir, 'index.html'), createTemplate('en', p, '../../'));
-  fs.writeFileSync(path.join(esDir, 'index.html'), createTemplate('es', p, '../../../'));
+});
+
+// 4. Generate Prompts and Categories (Spanish)
+const promptsESPath = path.join(ROOT_DIR, 'es/prompts-es.json');
+let promptsES = promptsData; // Fallback
+if (fs.existsSync(promptsESPath)) {
+  promptsES = JSON.parse(fs.readFileSync(promptsESPath, 'utf8'));
+}
+
+promptsES.forEach(prompt => {
+  if (!prompt.slug) return;
+  const dirEs = path.join(PROMPTS_OUT_ES, prompt.slug);
+  if (!fs.existsSync(dirEs)) fs.mkdirSync(dirEs, { recursive: true });
+  const htmlEs = createTemplate('es', prompt, '../../../'); // Adjusted prefix to match original logic
 });
 
 // Image Optimization Step for Netlify (Using npx sharp-cli to convert any assets/ images if they exist)
