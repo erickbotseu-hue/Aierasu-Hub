@@ -50,6 +50,9 @@ function generateHtml(lang, slug, title, content, prefix) {
   <link rel="stylesheet" href="${prefix}style.css">
   <link rel="icon" href="${prefix}favicon.png" type="image/png">
   
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4583545725011453" crossorigin="anonymous"></script>
+  
   <!-- Hreflang Tags for SEO -->
   <link rel="alternate" hreflang="en" href="https://aierasu.com/${slug}.html" />
   <link rel="alternate" hreflang="es" href="https://aierasu.com/es/${slug}.html" />

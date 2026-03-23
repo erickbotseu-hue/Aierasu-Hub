@@ -60,6 +60,8 @@ function createTemplate(lang, promptData, prefix) {
   <meta name="description" content="AI Prompt: ${title} in the ${category} category.">
   <link rel="stylesheet" href="${prefix}style.css">
   <link rel="icon" href="${prefix}favicon.png" type="image/png">
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4583545725011453" crossorigin="anonymous"></script>
   
   <!-- Hreflang Tags for SEO -->
   <link rel="alternate" hreflang="en" href="https://aierasu.com/prompts/${slug}/" />
