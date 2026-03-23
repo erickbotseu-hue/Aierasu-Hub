@@ -186,7 +186,49 @@
         const render = () => {
           const s = searchInput.value.toLowerCase();
           const c = catSelect.value;
+          const isDefaultView = s === '' && c === '';
+
           grid.innerHTML = '';
+          grid.style.display = isDefaultView ? 'block' : 'grid';
+
+          if (isDefaultView) {
+            categories.forEach(cat => {
+              const catPrompts = prompts.filter(p => p.category === cat).slice(0, 6);
+              if (catPrompts.length === 0) return;
+              
+              const section = document.createElement('div');
+              section.style.marginBottom = '4rem';
+              section.innerHTML = `
+                <div style="display:flex; justify-content:space-between; align-items:flex-end; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:1rem; margin-bottom:2rem;">
+                  <h3 style="font-size:1.5rem; color:var(--text); margin:0; display:flex; align-items:center; gap:0.5rem;">
+                    <span style="color:var(--accent);">✦</span> ${cat}
+                  </h3>
+                  <button class="view-all-btn" data-cat="${cat}" style="background:transparent; color:var(--accent); border:1px solid rgba(168, 85, 247, 0.3); padding:0.5rem 1.2rem; border-radius:30px; cursor:pointer; font-size:0.9rem; transition:all 0.2s;" onmouseover="this.style.background='rgba(168,85,247,0.1)'" onmouseout="this.style.background='transparent'">View All →</button>
+                </div>
+                <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem;">
+                  ${catPrompts.map(p => `
+                    <a href="/prompts/${p.slug || ''}" class="free-tool-card" style="border-color: rgba(255,255,255,0.05); text-decoration: none;">
+                      <div style="font-size: 0.8rem; color: var(--accent); margin-bottom: 0.5rem; text-transform: uppercase; font-weight: 600;">${p.category || 'General'}</div>
+                      <h3 class="free-tool-card__title" style="margin-bottom: 0.5rem; font-size: 1.2rem;">${p.title}</h3>
+                      <p class="free-tool-card__desc" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; margin-bottom: 1rem; color: var(--text-muted);">${p.prompt}</p>
+                      <div class="free-tool-card__cta">View Prompt <span style="font-family: var(--font-mono);">→</span></div>
+                    </a>
+                  `).join('')}
+                </div>
+              `;
+              grid.appendChild(section);
+            });
+            
+            grid.querySelectorAll('.view-all-btn').forEach(btn => {
+              btn.addEventListener('click', (e) => {
+                catSelect.value = e.target.getAttribute('data-cat');
+                render();
+                document.getElementById('prompt-search').scrollIntoView({behavior: 'smooth', block: 'center'});
+              });
+            });
+            return;
+          }
+
           const filtered = prompts.filter(p => {
              const titleMatch = p.title && p.title.toLowerCase().includes(s);
              const promptMatch = p.prompt && p.prompt.toLowerCase().includes(s);
