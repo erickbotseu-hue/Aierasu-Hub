@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Margen de Ganancia IA | Aierasu Tools</title>
+    <meta name="description" content="Calcula tu margen de rentabilidad verdadero, pricing óptimo y el coste de comisiones al instante.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Outfit:wght@500;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS Base -->
+    <link rel="stylesheet" href="../../style.css">
+    
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4583545725011453" crossorigin="anonymous"></script>
+
+    <!-- Calculator Specific Styles -->
+    <style>
+        .calculator-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: rgba(22, 22, 31, 0.6);
+            border: 1px solid rgba(168, 85, 247, 0.2);
+            border-radius: var(--radius-xl);
+            padding: 40px;
+            box-shadow: 0 0 60px rgba(168, 85, 247, 0.05);
+            backdrop-filter: blur(10px);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .calculator-container {
+                grid-template-columns: 1fr;
+                padding: 20px;
+            }
+        }
+
+        .calc-group {
+            margin-bottom: 24px;
+        }
+
+        .calc-label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .calc-input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .calc-prefix {
+            position: absolute;
+            left: 16px;
+            color: var(--text-muted);
+            font-weight: 600;
+            font-family: var(--font-mono);
+        }
+
+        .calc-suffix {
+            position: absolute;
+            right: 16px;
+            color: var(--text-muted);
+            font-weight: 600;
+            font-family: var(--font-mono);
+        }
+
+        .calc-input {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 14px 16px;
+            color: var(--text-primary);
+            font-family: var(--font-mono);
+            font-size: 1.1rem;
+            transition: all 0.3s;
+        }
+
+        .calc-input.has-prefix { padding-left: 36px; }
+        .calc-input.has-suffix { padding-right: 36px; }
+
+        .calc-input:focus {
+            outline: none;
+            border-color: var(--accent-purple);
+            box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.1);
+        }
+
+        /* Results Panel */
+        .results-panel {
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: var(--radius-lg);
+            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .results-panel::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 3px;
+            background: var(--gradient-main);
+        }
+
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .result-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+            margin-top: 10px;
+        }
+
+        .result-label {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .result-value {
+            font-size: 1.4rem;
+            font-weight: 800;
+            font-family: var(--font-mono);
+            color: var(--text-primary);
+        }
+
+        .result-value.profit {
+            color: var(--accent-green);
+        }
+        
+        .result-value.loss {
+            color: var(--accent-red);
+        }
+
+        .result-item.highlight {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            padding: 20px;
+            border-radius: var(--radius-md);
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .result-item.highlight .result-label {
+            color: var(--accent-green);
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .result-item.highlight .result-value {
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, #10b981, #34d399);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .ai-insights {
+            margin-top: 20px;
+            padding: 16px;
+            background: rgba(168, 85, 247, 0.1);
+            border-radius: var(--radius-md);
+            border-left: 3px solid var(--accent-purple);
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        .ai-insights strong {
+            color: var(--text-primary);
+        }
+    </style>
+</head>
+
+<body class="animate-fade-in">
+
+    <!-- Floating Particles Canvas -->
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- Navigation -->
+    <nav class="nav" id="nav">
+      <div class="container nav__inner">
+        <a href="index.html" class="nav__logo" style="text-decoration: none;">
+          <div class="nav__logo-icon" style="background: rgba(255,255,255,0.1); display:flex; align-items:center; justify-content:center;">←</div>
+          <span>Volver a las Herramientas</span>
+        </a>
+      </div>
+    </nav>
+
+    <main class="container" style="position: relative; z-index: 1; padding-top: 120px; padding-bottom: 100px;">
+        <section class="section-header anim" style="text-align: center; margin-bottom: 3rem;">
+            <div class="section-label">⚡ Micro-SaaS Tool</div>
+            <h1 class="hero__title">Calculadora de <span class="gradient-text">Margen y Rentabilidad de IA</span></h1>
+            <p class="section-subtitle" style="max-width: 600px; margin: 0 auto;">Ingresa tus costos y el precio objetivo para calcular al instante tu verdadera ganancia y obtener insights de pricing inteligentes.</p>
+        </section>
+
+        <!-- Calculator UI -->
+        <section class="anim">
+            <div class="calculator-container">
+                <!-- Inputs -->
+                <div class="calc-inputs">
+                    <h3 style="margin-bottom: 24px; font-size: 1.2rem; display: flex; align-items: center; gap: 8px;">
+                        <span>⚙️</span> Tus Parámetros Financieros
+                    </h3>
+
+                    <div class="calc-group">
+                        <label class="calc-label" for="cost-price">Costo de Producción/Adquisición (COGS)</label>
+                        <div class="calc-input-wrapper">
+                            <span class="calc-prefix">$</span>
+                            <input type="number" id="cost-price" class="calc-input has-prefix" placeholder="0.00" step="0.01" value="50">
+                        </div>
+                    </div>
+
+                    <div class="calc-group">
+                        <label class="calc-label" for="selling-price">Precio de Venta Sugerido (Ingresos)</label>
+                        <div class="calc-input-wrapper">
+                            <span class="calc-prefix">$</span>
+                            <input type="number" id="selling-price" class="calc-input has-prefix" placeholder="0.00" step="0.01" value="120">
+                        </div>
+                    </div>
+
+                    <div class="calc-group">
+                        <label class="calc-label" for="marketing-cost">Costo de Marketing/Adquisición (CPA / CPL)</label>
+                        <div class="calc-input-wrapper">
+                            <span class="calc-prefix">$</span>
+                            <input type="number" id="marketing-cost" class="calc-input has-prefix" placeholder="0.00" step="0.01" value="15">
+                        </div>
+                    </div>
+
+                    <div class="calc-group">
+                        <label class="calc-label" for="tax-rate">Comisiones y Pasarelas de Pago de EE.UU. u otros</label>
+                        <div class="calc-input-wrapper">
+                            <input type="number" id="tax-rate" class="calc-input has-suffix" placeholder="0" step="0.1" value="5">
+                            <span class="calc-suffix">%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Results -->
+                <div class="results-panel">
+                    <h3 style="font-size: 1.2rem; display: flex; align-items: center; gap: 8px; margin-bottom: 10px;">
+                        <span>📊</span> Reporte de Rentabilidad en Tiempo Real
+                    </h3>
+
+                    <div class="result-item">
+                        <span class="result-label">Ingreso Bruto Mínimo</span>
+                        <span class="result-value" id="res-revenue">$120.00</span>
+                    </div>
+
+                    <div class="result-item">
+                        <span class="result-label">Costos Totales a Restar (COGS + CPA + Comisiones)</span>
+                        <span class="result-value" id="res-costs" style="color: var(--accent-red);">-$71.00</span>
+                    </div>
+
+                    <div class="result-item">
+                        <span class="result-label">Margen de Rentabilidad Operativa</span>
+                        <span class="result-value" id="res-margin">58.33%</span>
+                    </div>
+
+                    <div class="result-item highlight">
+                        <span class="result-label">Ganancia Neta (Por Cada Unidad)</span>
+                        <span class="result-value profit" id="res-profit">$49.00</span>
+                    </div>
+
+                    <!-- AI Insights Box -->
+                    <div class="ai-insights" id="ai-insight-box">
+                        <strong>🤖 Insight y Sugerencia de Pricing:</strong> <span id="res-insight">¡Tu margen es muy saludable! Un margen de proyecto de software o un producto digital puro debe ser siempre superior al 70%, mientras que los bienes y el eCommerce típicamente rondan entre el 30% a 50%. Deberías intentar escalar ads aquí.</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Detailed Breakdown -->
+        <section class="anim" style="margin-top: 4rem; max-width: 900px; margin-left: auto; margin-right: auto;">
+             <div style="background: rgba(0,0,0,0.2); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 24px;">
+                <h4 style="margin-bottom: 16px; color: var(--text-primary);">¿Por qué debes calcular tu Margen Real todos los días?</h4>
+                <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6;">
+                    La gran mayoría de los principiantes en internet miden sus ganancias de la peor manera:  <code>Ventas Brutas - El Costo de un Producto</code> y se mienten al final de mes al ver sus estados financieros en rojo. Esta calculadora también tiene en cuenta el factor silencioso llamado CPA de Facebook/Google ad (Costo de Adquisición de Clientes), la tarifa implacable y devoradora de Paypal o Stripe (normalmente 3 a 5% + tipo de cambio) para darte tu "beneficio ultra-neto". Si en esta calculadora consigues dejar los números en verde, es físicamente imposible tener pérdidas en tus campañas, haz el experimento.
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="container text-center" style="padding: 4rem 0 2rem; border-top: 1px solid var(--border); margin-top: 2rem;">
+        <p class="subtitle" style="font-size: 0.9rem; color: var(--text-muted);">© 2026 Aierasu Tools.</p>
+    </footer>
+
+    <script src="../../script.js"></script>
+    <script>
+        // Form Elements
+        const costInput = document.getElementById('cost-price');
+        const priceInput = document.getElementById('selling-price');
+        const cpaInput = document.getElementById('marketing-cost');
+        const taxInput = document.getElementById('tax-rate');
+
+        // Result Elements
+        const resRevenue = document.getElementById('res-revenue');
+        const resCosts = document.getElementById('res-costs');
+        const resMargin = document.getElementById('res-margin');
+        const resProfit = document.getElementById('res-profit');
+        const resInsight = document.getElementById('res-insight');
+
+        function formatCurrency(num) {
+            return '$' + num.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+
+        function calculateProfit() {
+            const cost = parseFloat(costInput.value) || 0;
+            const price = parseFloat(priceInput.value) || 0;
+            const cpa = parseFloat(cpaInput.value) || 0;
+            const taxRate = parseFloat(taxInput.value) || 0;
+
+            // Calculations
+            const taxesAndFees = price * (taxRate / 100);
+            const totalCosts = cost + cpa + taxesAndFees;
+            const netProfit = price - totalCosts;
+            
+            let margin = 0;
+            if (price > 0) {
+                margin = (netProfit / price) * 100;
+            }
+
+            // Update UI
+            resRevenue.textContent = formatCurrency(price);
+            resCosts.textContent = '-' + formatCurrency(totalCosts);
+            resMargin.textContent = margin.toFixed(2) + '%';
+            
+            resProfit.textContent = formatCurrency(Math.abs(netProfit));
+            if(netProfit < 0) {
+                resProfit.textContent = '-' + resProfit.textContent;
+                resProfit.className = 'result-value loss';
+            } else {
+                resProfit.className = 'result-value profit';
+            }
+
+            // Simple AI Logic Insight (Spanish)
+            let insightText = '';
+            if (netProfit < 0) {
+                insightText = "⚠️ Alerta Roja: Estás asumiendo una gran pérdida con cada unidad entregada o vendida en publicidad. El cliente te sale más caro de conseguir que lo que paga. Escalar esta campaña equivale a la quiebra inminente, aumenta los precios o finaliza la campaña ahora.";
+            } else if (margin < 20) {
+                insightText = "Tus márgenes de ganancia son de alto riesgo y microscópicos (<20%). Esto te deja nulo margen de error por comisiones o fluctuaciones de precio publicitario. Deberías subir los precios del producto final urgentemente de cara al mes próximo para amortiguar el golpe estadístico y que puedas reinvertir dinero de tus ventas.";
+            } else if (margin >= 20 && margin <= 50) {
+                insightText = "Tienes unos márgenes bastante sanos. Son números promedio aceptables para un producto netamente físico o el famoso Dropshipping, el eCommerce clásico, y el modelo de Agencia. Todavía tienes espacio de mejora con el Up-Selling.";
+            } else if (margin > 50 && margin < 80) {
+                insightText = "¡Tus márgenes son sumamente fuertes! Tienes una oferta con un altísimo nivel de resistencia, de demanda real y una base sostenible para empezar a escalar la pauta de publicidad pagada asquerosamente agresiva en Facebook Ads u otros e intentar dominar mercados competitivos de igual forma en base a fuerza bruta. Súbele la potencia un 20% al presupuesto, no deberías quemar el saldo de tu cuenta ni aunque suban los cpm.";
+            } else {
+                insightText = "¡Márgenes absurdamente increíbles de Sillicon Valley (>80%)! Tienes unos números y ganancias características únicamente de software/SaaS auto-financiado o infoproductos 100% digitales de extrema demanda inelástica. Como tu costo de reproducción es legalmente «Cero», ya que si le cobras a mil, sigue valiendo $0 producirlo, significa que no vas a parar de amasar riquezas si sabes cómo mantener el producto y tu campaña sin fricción.";
+            }
+            resInsight.textContent = insightText;
+        }
+
+        // Event Listeners
+        [costInput, priceInput, cpaInput, taxInput].forEach(input => {
+            input.addEventListener('input', calculateProfit);
+        });
+
+        // Initial Calculation
+        calculateProfit();
+    </script>
+</body>
+</html>

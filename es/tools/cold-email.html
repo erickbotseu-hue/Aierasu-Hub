@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creador de Asuntos Cold Email — Herramienta IA Gratis | aierasu.com</title>
+    <meta name="description"
+        content="Genera 5 asuntos de correo frío irresistibles para aumentar tus tasas de apertura. Herramienta de IA gratuita de Aierasu.">
+    <meta property="og:title" content="Creador de Asuntos Cold Email — Herramienta IA Gratis | Aierasu Hub">
+    <meta property="og:description"
+        content="Deja de caer en la carpeta de spam. Obtén 5 asuntos de email generados por IA para maximizar tus aperturas B2B.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://aierasu.com/es/tools/cold-email.html">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Outfit:wght@500;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="icon" href="../../favicon.png" type="image/png">
+    <link rel="stylesheet" href="../../style.css">
+    
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4583545725011453" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- Navigation -->
+    <nav class="nav" id="nav">
+        <div class="container nav__inner">
+            <a href="index.html" class="tool-backlink">
+                <div class="tool-backlink-icon"></div>
+                <span>← Volver al Hub</span>
+            </a>
+            <a href="https://aierasu.gumroad.com/l/prompt" class="nav__cta"
+                style="font-size:0.8rem;padding:8px 18px;">Obtener The Vault — $19</a>
+        </div>
+    </nav>
+
+    <!-- Tool Content -->
+    <main class="container" style="padding-top: 100px;">
+        <div class="tool-page-layout">
+
+            <!-- LEFT: Input -->
+            <section class="tool-input-section">
+                <div class="tool-header">
+                    <div
+                        style="display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:999px;font-size:0.8rem;font-weight:600;color:#34d399;background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.2);margin-bottom:16px;">
+                        ✦ HERRAMIENTA GRATUITA
+                    </div>
+                    <h1>Creador de Asuntos <span class="gradient-text">Cold Email</span></h1>
+                    <p class="section-subtitle">Deja de acabar en el spam. Introduce tu contexto y la IA creará 5
+                        asuntos diseñados para maximizar tus tasas de apertura en ventas B2B.</p>
+                </div>
+
+                <div
+                    style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-xl);padding:32px;">
+                    <form id="emailToolForm" class="form-group" style="gap:20px;">
+                        <div class="form-group">
+                            <label for="product">¿Qué estás vendiendo / ofreciendo?</label>
+                            <input id="product" class="tool-input" type="text"
+                                placeholder="Ejemplo: CRM impulsado por IA para agencias inmobiliarias" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="target">¿Quién es tu cliente ideal?</label>
+                            <input id="target" class="tool-input" type="text"
+                                placeholder="Ejemplo: Dueños de agencia con 5-50 agentes" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="benefit">El beneficio clave que resuelves</label>
+                            <input id="benefit" class="tool-input" type="text"
+                                placeholder="Ejemplo: Reducir el tiempo de respuesta de 2 horas a 30 segundos">
+                        </div>
+                        <div class="form-group">
+                            <label for="emailTone">Tono del Email</label>
+                            <select id="emailTone" class="tool-input">
+                                <option value="direct">🎯 Directo & Audaz</option>
+                                <option value="curious">🌀 Curiosidad / Bucle Abierto</option>
+                                <option value="personal">🤝 Personal & Cercano</option>
+                                <option value="urgent">⚡ Urgencia / FOMO</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn--primary btn--glow btn-tool-generate" id="generateBtn">
+                            ✉️ Generar Asuntos
+                        </button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- RIGHT: Output -->
+            <section class="tool-output-section">
+                <div class="tool-output-card" id="outputContainer">
+
+                    <!-- Empty State -->
+                    <div class="tool-empty-state" id="emptyState">
+                        <div class="tool-empty-state__icon">✉️</div>
+                        <h3 style="margin-bottom:8px;">Tus asuntos aparecerán aquí</h3>
+                        <p>Rellena el formulario y dale a Generar.</p>
+                    </div>
+
+                    <!-- Loading -->
+                    <div class="tool-loading-state" id="loadingState" style="display:none;">
+                        <div class="tool-spinner"></div>
+                        <h3 style="font-weight:700;">Analizando psicología de apertura...</h3>
+                        <p style="color:var(--text-secondary);margin-top:8px;">Generando asuntos basados en 10,000+
+                            correos fríos exitosos.</p>
+                    </div>
+
+                    <!-- Results (Value First: 3 free + 2 blurred) -->
+                    <div id="resultsState" style="display:none;">
+                        <h3 style="margin-bottom:16px;font-weight:700;">Tus Asuntos de Email:</h3>
+                        <div id="resultsList" style="display:flex;flex-direction:column;gap:12px;"></div>
+
+                        <!-- Blurred section -->
+                        <div id="blurredSection" style="position:relative;margin-top:12px;">
+                            <div id="blurredItems"
+                                style="display:flex;flex-direction:column;gap:12px;filter:blur(6px);pointer-events:none;user-select:none;">
+                            </div>
+                            <div
+                                style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(10,10,20,0.6);border-radius:var(--radius-md);backdrop-filter:blur(2px);">
+                                <h4 style="color:#fff;font-size:1.1rem;margin-bottom:4px;">🔒 2 asuntos más bloqueados</h4>
+                                <p style="color:var(--text-secondary);font-size:0.85rem;margin-bottom:16px;">Introduce tu correo para desbloquear los 5</p>
+                                <form id="emailCaptureForm" style="display:flex;gap:8px;width:90%;max-width:400px;">
+                                    <input type="email" id="userEmail" class="tool-input" placeholder="tucorreo@email.com"
+                                        required style="flex:1;margin:0;">
+                                    <button type="submit" class="btn btn--primary"
+                                        style="white-space:nowrap;padding:10px 18px;">Desbloquear 🔓</button>
+                                </form>
+                                <p style="font-size:0.75rem;margin-top:8px;color:var(--text-muted);opacity:0.5;">🔒 Cero
+                                    spam. Date de baja cuando quieras.</p>
+                            </div>
+                        </div>
+
+                        <!-- Unlocked section -->
+                        <div id="unlockedSection" style="display:none;">
+                            <div id="unlockedItems" style="display:flex;flex-direction:column;gap:12px;"></div>
+                        </div>
+
+                        <!-- Tips Card -->
+                        <div
+                            style="margin-top:24px;padding:20px;background:rgba(99,102,241,0.06);border:1px solid rgba(99,102,241,0.15);border-radius:var(--radius-md);">
+                            <h4 style="color:var(--accent-blue);margin-bottom:8px;">💡 Consejos Pro para Más Aperturas
+                            </h4>
+                            <ul
+                                style="color:var(--text-secondary);font-size:0.9rem;line-height:1.8;list-style:none;padding:0;">
+                                <li>• Mantén los asuntos por debajo de 40 caracteres (para móviles)</li>
+                                <li>• Personaliza con {{firstName}} cuando sea posible</li>
+                                <li>• Haz pruebas A/B con tus 2 asuntos favoritos</li>
+                                <li>• Envía de martes a jueves entre las 8-10 AM hora local</li>
+                                <li>• Usa <a href="https://instantly.ai" target="_blank" rel="noopener"
+                                        style="color:var(--accent-purple);text-decoration:underline;">Instantly.ai</a>
+                                    para tus campañas de cold outreach automatizadas</li>
+                            </ul>
+                        </div>
+
+                        <!-- UPSELL -->
+                        <div class="tool-upsell-banner">
+                            <h4>📧 ¿Quieres el Sistema B2B Completo?</h4>
+                            <p>Los asuntos son solo el principio. Consigue <strong>El AI Prompt Vault 2.0</strong> — 50+
+                                prompts de ventas y marketing para redactar secuencias enteras, follow-ups y guiones de cierre.</p>
+                            <a href="https://aierasu.gumroad.com/l/prompt" class="btn btn--primary"
+                                style="background:var(--gradient-main);">Obtener The Vault — $19 →</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer style="padding:40px 0 20px;border-top:1px solid var(--border);">
+        <div class="container" style="text-align:center;">
+            <p style="color:var(--text-muted);font-size:0.85rem;">© 2026 <a href="../index.html"
+                    style="color:var(--accent-purple);">aierasu.com</a> — Empoderando creadores digitales.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Particles
+            const canvas = document.getElementById('particles-canvas');
+            if (canvas) {
+                const ctx = canvas.getContext('2d');
+                let w, h;
+                function resize() { w = canvas.width = window.innerWidth; h = canvas.height = window.innerHeight; }
+                resize(); window.addEventListener('resize', resize);
+                class Particle {
+                    constructor() { this.reset(); }
+                    reset() { this.x = Math.random() * w; this.y = Math.random() * h; this.size = Math.random() * 2 + 0.5; this.speedY = Math.random() * -0.3 - 0.1; this.opacity = Math.random() * 0.5 + 0.1; }
+                    update() { this.y += this.speedY; if (this.y < -5) { this.reset(); this.y = h + 5; } }
+                    draw() { ctx.globalAlpha = this.opacity; ctx.fillStyle = '#6366f1'; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); }
+                }
+                const particles = Array.from({ length: 50 }, () => new Particle());
+                (function animate() { ctx.clearRect(0, 0, w, h); particles.forEach(p => { p.update(); p.draw(); }); requestAnimationFrame(animate); })();
+            }
+
+            const nav = document.getElementById('nav');
+            window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 50));
+
+            const form = document.getElementById('emailToolForm');
+            const emailCaptureForm = document.getElementById('emailCaptureForm');
+            const emptyState = document.getElementById('emptyState');
+            const loadingState = document.getElementById('loadingState');
+            const resultsState = document.getElementById('resultsState');
+            const resultsList = document.getElementById('resultsList');
+            const blurredSection = document.getElementById('blurredSection');
+            const blurredItems = document.getElementById('blurredItems');
+            const unlockedSection = document.getElementById('unlockedSection');
+            const unlockedItems = document.getElementById('unlockedItems');
+
+            let allResults = [];
+
+            // Generate
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const product = document.getElementById('product').value.trim();
+                const target = document.getElementById('target').value.trim();
+                const benefit = document.getElementById('benefit').value.trim();
+                const tone = document.getElementById('emailTone').value;
+
+                emptyState.style.display = 'none';
+                resultsState.style.display = 'none';
+                loadingState.style.display = 'flex';
+
+                setTimeout(() => {
+                    allResults = generateSubjects(product, target, benefit, tone);
+                    loadingState.style.display = 'none';
+                    renderValueFirst(allResults);
+                    resultsState.style.display = 'block';
+                }, 2200);
+            });
+
+            function renderValueFirst(items) {
+                resultsList.innerHTML = '';
+                blurredItems.innerHTML = '';
+                unlockedSection.style.display = 'none';
+                blurredSection.style.display = 'block';
+
+                items.slice(0, 3).forEach((text, i) => {
+                    resultsList.appendChild(createItem(text, i));
+                });
+                items.slice(3).forEach((text, i) => {
+                    blurredItems.appendChild(createItem(text, i + 3));
+                });
+            }
+
+            // Email unlock → MailerLite
+            emailCaptureForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const email = document.getElementById('userEmail').value;
+
+                const formData = new FormData();
+                formData.append('fields[email]', email);
+                formData.append('ml-submit', '1');
+                formData.append('anticsrf', 'true');
+                fetch('https://assets.mailerlite.com/jsonp/2165289/forms/181139570513937867/subscribe', {
+                    method: 'POST', body: formData, mode: 'no-cors'
+                }).catch(() => { });
+
+                blurredSection.style.display = 'none';
+                unlockedSection.style.display = 'block';
+                unlockedItems.innerHTML = '';
+                allResults.slice(3).forEach((text, i) => {
+                    unlockedItems.appendChild(createItem(text, i + 3));
+                });
+            });
+
+            function createItem(text, index) {
+                const div = document.createElement('div');
+                div.className = 'hook-result-item';
+                const safeText = text.replace(/`/g, "'").replace(/\\/g, '\\\\');
+                div.innerHTML = `
+          <div style="display:flex;align-items:center;gap:12px;">
+            <span style="font-size:0.75rem;font-weight:700;color:var(--text-muted);min-width:20px;">${index + 1}.</span>
+            <span class="hook-result-text">${text}</span>
+          </div>
+          <button class="btn-copy-hook" onclick="copyItem(this, \`${safeText}\`)">Copiar</button>
+        `;
+                return div;
+            }
+
+            // Subject Line Generator
+            function generateSubjects(product, target, benefit, tone) {
+                const prod = product.length > 50 ? product.substring(0, 50) : product;
+                const tgt = target.split(' ').slice(0, 4).join(' ');
+                const ben = benefit.length > 40 ? benefit.substring(0, 40) : benefit;
+
+                const templates = {
+                    direct: [
+                        `${tgt}: ¿${ben}?`,
+                        `Pregunta rápida sobre ${prod}`,
+                        `Ayudamos a la competencia a ${ben}`,
+                        `${ben} — así es como lo hacemos`,
+                        `El problema oculto de ${prod}`
+                    ],
+                    curious: [
+                        `Algo extraño que noté sobre ${tgt}...`,
+                        `Esto es o una genialidad o una locura (sobre ${prod})`,
+                        `${tgt}, ¿estamos haciendo esto mal?`,
+                        `Truco inusual para ${ben}`,
+                        `El 93% de ${tgt} se pierden esto sobre ${prod}`
+                    ],
+                    personal: [
+                        `Hola, pensé en ti al ver estos datos de ${prod}`,
+                        `Conectando para hablar de ${ben}`,
+                        `¿Uniendo furezas para ${tgt}? Tengo algo para ti`,
+                        `Me encanta tu trabajo — idea rápida sobre ${prod}`,
+                        `¿Café virtual sobre ${ben}?`
+                    ],
+                    urgent: [
+                        `${ben} — antes que tu competencia lo haga`,
+                        `Tu competencia ${tgt} encontró este hack de ${prod}`,
+                        `[Sensible al tiempo] Oportunidad de ${ben}`,
+                        `Quedan 2 puestos para la demo de ${prod}`,
+                        `${tgt}: esta ventana se cierra el viernes`
+                    ]
+                };
+                return (templates[tone] || templates.direct).map(s => s.charAt(0).toUpperCase() + s.slice(1));
+            }
+        });
+
+        // Global copy with "Powered by"
+        window.copyItem = function (btn, text) {
+            const copyText = text + '\n\n✦ Generado por aierasu.com';
+            navigator.clipboard.writeText(copyText).then(() => {
+                const orig = btn.innerText;
+                btn.innerText = '¡Copiado! ✓';
+                btn.style.color = '#34d399';
+                btn.style.borderColor = '#34d399';
+                setTimeout(() => { btn.innerText = orig; btn.style.color = ''; btn.style.borderColor = ''; }, 2000);
+            });
+        };
+    </script>
+</body>
+
+</html>
