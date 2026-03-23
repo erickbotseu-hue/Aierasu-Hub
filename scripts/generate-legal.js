@@ -48,6 +48,12 @@ function generateHtml(lang, slug, title, content, prefix) {
   <title>${title} — Aierasu Hub</title>
   <meta name="description" content="${title} for Aierasu Hub.">
   <link rel="stylesheet" href="${prefix}style.css">
+  <link rel="icon" href="${prefix}favicon.svg" type="image/svg+xml">
+  
+  <!-- Hreflang Tags for SEO -->
+  <link rel="alternate" hreflang="en" href="https://aierasu.com/${slug}.html" />
+  <link rel="alternate" hreflang="es" href="https://aierasu.com/es/${slug}.html" />
+  <link rel="alternate" hreflang="x-default" href="https://aierasu.com/${slug}.html" />
   
   <meta name="google-site-verification" content="MihO2RKO_6DwphtjtN-8h5ed2_8L24s1UsfHYKPMXJc" />
 
@@ -61,6 +67,8 @@ function generateHtml(lang, slug, title, content, prefix) {
   </script>
 </head>
 <body style="background: var(--bg); color: var(--text); font-family: var(--font-sans);">
+  <!-- Floating Particles Canvas -->
+  <canvas id="particles-canvas"></canvas>
   
   <nav class="nav scrolled" id="nav" style="border-bottom: 1px solid var(--border); background: var(--nav-bg);">
     <div class="container nav__inner">
@@ -69,11 +77,16 @@ function generateHtml(lang, slug, title, content, prefix) {
           <span style="font-size: 1.5rem; color: var(--accent);">&larr;</span> aierasu<span style="opacity:0.5">.com</span>
         </a>
       </div>
+      <div class="nav__lang" style="margin-left: auto; font-family: var(--font-mono); font-size: 0.9rem;">
+        <a href="/${slug}.html" style="text-decoration: none; color: ${isEs ? 'var(--text-muted)' : 'var(--text)'}; font-weight: ${isEs ? '400' : '600'};">EN</a> 
+        <span style="opacity: 0.3; margin: 0 0.5rem;">|</span> 
+        <a href="/es/${slug}.html" style="text-decoration: none; color: ${isEs ? 'var(--text)' : 'var(--text-muted)'}; font-weight: ${isEs ? '600' : '400'};">ES</a>
+      </div>
     </div>
   </nav>
 
   <!-- Content -->
-  <main class="container" style="max-width: 800px; padding: 8rem 1rem 4rem;">
+  <main class="container" style="max-width: 800px; padding: 8rem 1rem 4rem; position: relative; z-index: 1;">
     <h1 style="font-size: 2.5rem; margin-bottom: 2rem;">${title}</h1>
     <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: 12px; padding: 2.5rem; line-height: 1.7; color: var(--text-muted);">
       ${content}
@@ -83,6 +96,8 @@ function generateHtml(lang, slug, title, content, prefix) {
   <footer class="container text-center" style="padding: 60px 0 40px; border-top: 1px solid var(--border); margin-top: 40px;">
     <p style="color: var(--text-muted); font-size: 0.9rem;">© 2026 Aierasu. ${isEs ? 'Empoderando creadores digitales en todo el mundo.' : 'Empowering digital creators worldwide.'}</p>
   </footer>
+
+  <script src="${prefix}script.js"></script>
 </body>
 </html>`;
 }

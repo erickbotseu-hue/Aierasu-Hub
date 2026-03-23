@@ -6,6 +6,12 @@
   <title>Terms of Service — Aierasu Hub</title>
   <meta name="description" content="Terms of Service for Aierasu Hub.">
   <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  
+  <!-- Hreflang Tags for SEO -->
+  <link rel="alternate" hreflang="en" href="https://aierasu.com/terms.html" />
+  <link rel="alternate" hreflang="es" href="https://aierasu.com/es/terms.html" />
+  <link rel="alternate" hreflang="x-default" href="https://aierasu.com/terms.html" />
   
   <meta name="google-site-verification" content="MihO2RKO_6DwphtjtN-8h5ed2_8L24s1UsfHYKPMXJc" />
 
@@ -19,6 +25,8 @@
   </script>
 </head>
 <body style="background: var(--bg); color: var(--text); font-family: var(--font-sans);">
+  <!-- Floating Particles Canvas -->
+  <canvas id="particles-canvas"></canvas>
   
   <nav class="nav scrolled" id="nav" style="border-bottom: 1px solid var(--border); background: var(--nav-bg);">
     <div class="container nav__inner">
@@ -27,11 +35,16 @@
           <span style="font-size: 1.5rem; color: var(--accent);">&larr;</span> aierasu<span style="opacity:0.5">.com</span>
         </a>
       </div>
+      <div class="nav__lang" style="margin-left: auto; font-family: var(--font-mono); font-size: 0.9rem;">
+        <a href="/terms.html" style="text-decoration: none; color: var(--text); font-weight: 600;">EN</a> 
+        <span style="opacity: 0.3; margin: 0 0.5rem;">|</span> 
+        <a href="/es/terms.html" style="text-decoration: none; color: var(--text-muted); font-weight: 400;">ES</a>
+      </div>
     </div>
   </nav>
 
   <!-- Content -->
-  <main class="container" style="max-width: 800px; padding: 8rem 1rem 4rem;">
+  <main class="container" style="max-width: 800px; padding: 8rem 1rem 4rem; position: relative; z-index: 1;">
     <h1 style="font-size: 2.5rem; margin-bottom: 2rem;">Terms of Service</h1>
     <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: 12px; padding: 2.5rem; line-height: 1.7; color: var(--text-muted);">
       <p>By accessing Aierasu Hub, you agree to these Terms. All prompts and tools are provided "as is" without warranty. You may use our generated content for commercial purposes, but you may not scrape or resell our database directly.</p>
@@ -41,5 +54,7 @@
   <footer class="container text-center" style="padding: 60px 0 40px; border-top: 1px solid var(--border); margin-top: 40px;">
     <p style="color: var(--text-muted); font-size: 0.9rem;">© 2026 Aierasu. Empowering digital creators worldwide.</p>
   </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aierasu Tools | Micro-SaaS y Generadores</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Outfit:wght@500;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- CSS -->
+    <link rel="stylesheet" href="../../style.css">
+</head>
+
+<body class="animate-fade-in">
+
+    <!-- Floating Particles Canvas -->
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- Navigation -->
+    <nav class="nav" id="nav">
+      <div class="container nav__inner">
+        <a href="../index.html" class="nav__logo" style="text-decoration: none;">
+          <div class="nav__logo-icon" style="background: rgba(255,255,255,0.1); display:flex; align-items:center; justify-content:center;">←</div>
+          <span>Volver al Hub</span>
+        </a>
+      </div>
+    </nav>
+
+    <main class="container" style="position: relative; z-index: 1; padding-top: 120px; padding-bottom: 100px;">
+        <section class="section-header anim" style="text-align: center; margin-bottom: 4rem;">
+            <h1 class="hero__title">Aierasu <span class="gradient-text">Tools</span></h1>
+            <p class="section-subtitle" style="max-width: 600px; margin: 0 auto;">Utilidades interactivas, generadores de IA y calculadoras para resolver tus problemas en segundos.</p>
+        </section>
+
+        <!-- Tools Grid -->
+        <section>
+            <div class="free-tools__grid anim" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem;">
+                <!-- Tool 1: Viral Hook Generator -->
+                <div class="free-tool-card" style="display: flex; flex-direction: column;">
+                    <div class="free-tool-card__status" style="background: rgba(16, 185, 129, 0.2); color: #10b981;">✦ EN VIVO Y GRATIS</div>
+                    <div class="free-tool-card__icon" style="font-size: 2.5rem;">🪄</div>
+                    <h3 class="free-tool-card__title">Generador de Hooks Virales</h3>
+                    <p class="free-tool-card__desc">Obtén 5 ganchos diseñados psicológicamente para retener a tu audiencia en los primeros 3 segundos de tus vídeos.</p>
+                    <a href="../../tools/viral-hooks.html" class="btn btn--primary" style="margin-top: auto;">Abrir Aplicación →</a>
+                </div>
+
+                <!-- Tool 2: Cold Email Subject Creator -->
+                <div class="free-tool-card" style="display: flex; flex-direction: column;">
+                    <div class="free-tool-card__status" style="background: rgba(16, 185, 129, 0.2); color: #10b981;">✦ EN VIVO Y GRATIS</div>
+                    <div class="free-tool-card__icon" style="font-size: 2.5rem;">✉️</div>
+                    <h3 class="free-tool-card__title">Creador de Asuntos de Email</h3>
+                    <p class="free-tool-card__desc">Genera líneas de asunto irresistibles que aumentan drásticamente las tasas de apertura para ventas B2B.</p>
+                    <a href="../../tools/cold-email.html" class="btn btn--primary" style="margin-top: auto;">Abrir Aplicación →</a>
+                </div>
+
+                <!-- Tool 3: LinkedIn Profile Optimizer -->
+                <div class="free-tool-card" style="display: flex; flex-direction: column;">
+                    <div class="free-tool-card__status" style="background: rgba(16, 185, 129, 0.2); color: #10b981;">✦ EN VIVO Y GRATIS</div>
+                    <div class="free-tool-card__icon" style="font-size: 2.5rem;">💼</div>
+                    <h3 class="free-tool-card__title">Optimizador de Perfil LinkedIn</h3>
+                    <p class="free-tool-card__desc">Audita tu titular de LinkedIn y obtén variaciones optimizadas por IA para atraer clientes de forma pasiva.</p>
+                    <a href="../../tools/linkedin-optimizer.html" class="btn btn--primary" style="margin-top: auto;">Abrir Aplicación →</a>
+                </div>
+
+                <!-- Tool 4: New Micro-SaaS: AI Profit Margin Calculator -->
+                <div class="free-tool-card" style="border-color: rgba(59, 130, 246, 0.4); display: flex; flex-direction: column;">
+                    <div class="free-tool-card__status" style="background: rgba(59, 130, 246, 0.2); color: #60a5fa;">✦ NUEVA HERRAMIENTA</div>
+                    <div class="free-tool-card__icon" style="font-size: 2.5rem; background: rgba(59, 130, 246, 0.1);">🧮</div>
+                    <h3 class="free-tool-card__title">Calculadora de Margen de IA</h3>
+                    <p class="free-tool-card__desc">La herramienta definitiva para emprendedores internacionales. Calcula tus precios, impuestos y márgenes reales al instante.</p>
+                    <a href="../../tools/profit-calculator.html" class="btn btn--primary" style="margin-top: auto;">Abrir Calculadora →</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="container text-center" style="padding: 4rem 0 2rem; border-top: 1px solid var(--border); margin-top: 2rem;">
+        <p class="subtitle" style="font-size: 0.9rem; color: var(--text-muted);">© 2026 Aierasu Tools.</p>
+    </footer>
+
+    <script src="../../script.js"></script>
+</body>
+</html>
