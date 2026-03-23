@@ -59,6 +59,7 @@ function createTemplate(lang, promptData, prefix) {
   <title>${title} — Prompt Wiki | Aierasu Hub</title>
   <meta name="description" content="AI Prompt: ${title} in the ${category} category.">
   <link rel="stylesheet" href="${prefix}style.css">
+  <link rel="icon" href="${prefix}favicon.png" type="image/png">
   
   <!-- Hreflang Tags for SEO -->
   <link rel="alternate" hreflang="en" href="https://aierasu.com/prompts/${slug}/" />

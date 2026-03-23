@@ -48,7 +48,7 @@ function generateHtml(lang, slug, title, content, prefix) {
   <title>${title} — Aierasu Hub</title>
   <meta name="description" content="${title} for Aierasu Hub.">
   <link rel="stylesheet" href="${prefix}style.css">
-  <link rel="icon" href="${prefix}favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="${prefix}favicon.png" type="image/png">
   
   <!-- Hreflang Tags for SEO -->
   <link rel="alternate" hreflang="en" href="https://aierasu.com/${slug}.html" />
