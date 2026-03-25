@@ -22,14 +22,14 @@ const pages = [
   {
     slug: 'contact', titleEn: 'Contact Us', titleEs: 'Contáctanos',
     contentEn: `<p>Have a question or want to suggest a new prompt? Reach out using the form below!</p>
-    <form name="contact" method="POST" data-netlify="true" style="display: flex; flex-direction: column; gap: 1rem; margin-top: 2rem; max-width: 500px;">
+    <form name="contact" action="https://formspree.io/f/XXXXX-YOUR-ID-HERE-XXXXX" method="POST" style="display: flex; flex-direction: column; gap: 1rem; margin-top: 2rem; max-width: 500px;">
       <input type="text" name="name" placeholder="Your Name" required style="padding: 10px; border-radius: 6px; border: 1px solid var(--border); background: rgba(0,0,0,0.2); color: white;">
       <input type="email" name="email" placeholder="Your Email" required style="padding: 10px; border-radius: 6px; border: 1px solid var(--border); background: rgba(0,0,0,0.2); color: white;">
       <textarea name="message" placeholder="Your Message" rows="5" required style="padding: 10px; border-radius: 6px; border: 1px solid var(--border); background: rgba(0,0,0,0.2); color: white; resize: vertical;"></textarea>
       <button type="submit" style="background: var(--accent); color: white; border: none; padding: 12px; border-radius: 6px; font-weight: 600; cursor: pointer;">Send Message</button>
     </form>`,
     contentEs: `<p>¿Tienes alguna pregunta o deseas sugerir un nuevo prompt? ¡Contáctanos usando el formulario a continuación!</p>
-    <form name="contact" method="POST" data-netlify="true" style="display: flex; flex-direction: column; gap: 1rem; margin-top: 2rem; max-width: 500px;">
+    <form name="contact" action="https://formspree.io/f/XXXXX-YOUR-ID-HERE-XXXXX" method="POST" style="display: flex; flex-direction: column; gap: 1rem; margin-top: 2rem; max-width: 500px;">
       <input type="text" name="name" placeholder="Tu Nombre" required style="padding: 10px; border-radius: 6px; border: 1px solid var(--border); background: rgba(0,0,0,0.2); color: white;">
       <input type="email" name="email" placeholder="Tu Correo Electrónico" required style="padding: 10px; border-radius: 6px; border: 1px solid var(--border); background: rgba(0,0,0,0.2); color: white;">
       <textarea name="message" placeholder="Tu Mensaje" rows="5" required style="padding: 10px; border-radius: 6px; border: 1px solid var(--border); background: rgba(0,0,0,0.2); color: white; resize: vertical;"></textarea>

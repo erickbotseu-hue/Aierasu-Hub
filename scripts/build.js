@@ -176,7 +176,7 @@ function createTemplate(lang, promptData, prefix) {
       <div style="background: linear-gradient(135deg, rgba(168, 85, 247, 0.1), rgba(99, 102, 241, 0.1)); border: 1px solid rgba(168, 85, 247, 0.3); border-radius: 12px; padding: 2.5rem; margin-top: 4rem; text-align: center;">
         <h3 style="font-size: 1.5rem; margin-bottom: 0.5rem; color: var(--text);">${isEs ? '¿Quieres el Prompt de la Semana en tu correo?' : 'Want the Prompt of the Week in your inbox?'}</h3>
         <p style="color: var(--text-muted); margin-bottom: 1.5rem;">${isEs ? 'Únete a 1,000+ marketers y domina la IA.' : 'Join 1,000+ marketers and master AI.'}</p>
-        <form name="newsletter" method="POST" data-netlify="true" style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+        <form name="newsletter" action="https://formspree.io/f/XXXXX-YOUR-ID-HERE-XXXXX" method="POST" style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
           <input type="email" name="email" placeholder="${isEs ? 'Tu correo electrónico' : 'Your email address'}" required style="padding: 12px 20px; border-radius: 6px; border: 1px solid var(--border); background: rgba(0,0,0,0.2); color: white; width: 100%; max-width: 300px;">
           <button type="submit" style="background: var(--accent); color: white; border: none; padding: 12px 24px; border-radius: 6px; font-weight: 600; cursor: pointer;">${isEs ? 'Suscribirme' : 'Subscribe'}</button>
         </form>

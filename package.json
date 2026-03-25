@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Aierasu AI Utility Hub",
   "scripts": {
-    "build": "node scripts/build.js",
+    "build": "node scripts/build.js && node scripts/generate-legal.js",
     "dev": "npx serve ."
   },
   "keywords": [],
